@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialService.Web", "SocialService.Web\SocialService.Web.csproj", "{B3F85CA4-83FA-4C41-8432-DAAA456B0BBD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialService.DataAccess", "SocialService.DataAccess\SocialService.DataAccess.csproj", "{3626E3B6-15F4-4496-AAF7-1DED72571C49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialService.ServiceLogic", "SocialService.ServiceLogic\SocialService.ServiceLogic.csproj", "{F93AE0EA-4901-4D2F-BDFB-02BA256004EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{B3F85CA4-83FA-4C41-8432-DAAA456B0BBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3F85CA4-83FA-4C41-8432-DAAA456B0BBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3F85CA4-83FA-4C41-8432-DAAA456B0BBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3626E3B6-15F4-4496-AAF7-1DED72571C49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3626E3B6-15F4-4496-AAF7-1DED72571C49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3626E3B6-15F4-4496-AAF7-1DED72571C49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3626E3B6-15F4-4496-AAF7-1DED72571C49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F93AE0EA-4901-4D2F-BDFB-02BA256004EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F93AE0EA-4901-4D2F-BDFB-02BA256004EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F93AE0EA-4901-4D2F-BDFB-02BA256004EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F93AE0EA-4901-4D2F-BDFB-02BA256004EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
