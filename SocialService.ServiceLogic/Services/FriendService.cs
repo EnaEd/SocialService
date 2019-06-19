@@ -10,16 +10,17 @@ namespace SocialService.ServiceLogic.Services
 {
     public class FriendService : IFriendService
     {
-        IUnitOfWork Database { get; set; }
+        
+        IRepository<Friend> Database { get; set; }
 
-        public FriendService(IUnitOfWork unitOfWork)
+        public FriendService(IRepository<Friend> repository)
         {
-            Database = unitOfWork;
+            Database = repository;
         }
         public IEnumerable<FriendDTO> GetFriends()
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Friend, FriendDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<Friend>, List<FriendDTO>>(Database.Friends.GetAll());
+            return mapper.Map<IEnumerable<Friend>, List<FriendDTO>>(/*Database.Friends.GetAll()*/Database.GetAll());
         }
 
         public FriendDTO GetFriend(int? id)
@@ -28,7 +29,7 @@ namespace SocialService.ServiceLogic.Services
             {
                 throw new ValidationException("Id not found",string.Empty);
             }
-            Friend friend = Database.Friends.Get(id.Value);
+            Friend friend = Database.Get(id.Value);
             if (friend is null)
             {
                 throw new ValidationException("Friend not found",string.Empty);
@@ -38,7 +39,7 @@ namespace SocialService.ServiceLogic.Services
 
         public void Dispose()
         {
-            Database.Dispose();
+            Dispose();
         }
     }
 }

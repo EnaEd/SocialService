@@ -12,9 +12,9 @@ namespace SocialService.DataAccess.Repositories
     {
         private FriendContext _context;
 
-        public FriendRepository(FriendContext context)
+        public FriendRepository()
         {
-            _context = context;
+            _context = new FriendContext();
         }
 
         public void Delete(int id)
@@ -48,7 +48,7 @@ namespace SocialService.DataAccess.Repositories
 
         public void Update(Friend item)
         {
-           // _context.Entry(item).State = EntityState.Modified;
+            _context.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
         }
     }
 }
