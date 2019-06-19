@@ -67,6 +67,9 @@ namespace SocialService.Web.Controllers
                     else
                     {
                         return RedirectToAction("FriendView", "Friend");
+                        //return Redirect("https://localhost:44396/api/values");  
+
+
                     }
                 }
                 else

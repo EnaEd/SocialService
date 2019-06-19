@@ -17,6 +17,7 @@ namespace SocialService.Web.Controllers
         public FriendController(IFriendService service)
         {
             _friendService = service;
+            
         }
         public ActionResult FriendView()
         {

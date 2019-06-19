@@ -20,7 +20,7 @@ namespace SocialService.ServiceLogic.Services
         public IEnumerable<FriendDTO> GetFriends()
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Friend, FriendDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<Friend>, List<FriendDTO>>(/*Database.Friends.GetAll()*/Database.GetAll());
+            return mapper.Map<IEnumerable<Friend>, List<FriendDTO>>(Database.GetAll());
         }
 
         public FriendDTO GetFriend(int? id)
@@ -39,7 +39,6 @@ namespace SocialService.ServiceLogic.Services
 
         public void Dispose()
         {
-            Dispose();
         }
     }
 }
