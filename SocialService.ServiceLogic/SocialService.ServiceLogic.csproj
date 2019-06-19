@@ -8,4 +8,11 @@
     <ProjectReference Include="..\SocialService.DataAccess\SocialService.DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTO\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>

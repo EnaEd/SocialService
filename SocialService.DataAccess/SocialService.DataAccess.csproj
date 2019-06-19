@@ -16,4 +16,12 @@
     <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework" Version="2.2.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\" />
+    <Folder Include="EntityFramework\" />
+    <Folder Include="Identity\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
 </Project>
