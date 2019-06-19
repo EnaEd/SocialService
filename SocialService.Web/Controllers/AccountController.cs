@@ -66,7 +66,7 @@ namespace SocialService.Web.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("FriendView", "Friend");
                     }
                 }
                 else

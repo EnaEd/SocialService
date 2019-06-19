@@ -5,8 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="EntityFramework\**" />
+    <Compile Remove="Identity\**" />
+    <Compile Remove="Interfaces\**" />
     <Compile Remove="Models\**" />
+    <EmbeddedResource Remove="EntityFramework\**" />
+    <EmbeddedResource Remove="Identity\**" />
+    <EmbeddedResource Remove="Interfaces\**" />
     <EmbeddedResource Remove="Models\**" />
+    <None Remove="EntityFramework\**" />
+    <None Remove="Identity\**" />
+    <None Remove="Interfaces\**" />
     <None Remove="Models\**" />
   </ItemGroup>
 
@@ -14,11 +23,6 @@
     <Compile Remove="Entities\ApplicationRole.cs" />
     <Compile Remove="Entities\ApplicationUser.cs" />
     <Compile Remove="Entities\ClientProfile.cs" />
-    <Compile Remove="EntityFramework\ApplicationContext.cs" />
-    <Compile Remove="Identity\ApplicationRoleManager.cs" />
-    <Compile Remove="Identity\ApplicationUserManager.cs" />
-    <Compile Remove="Interfaces\IClientManager.cs" />
-    <Compile Remove="Interfaces\IUnitOfWork.cs" />
     <Compile Remove="Repositories\ClientManager.cs" />
     <Compile Remove="Repositories\IdentityUnitOfWork.cs" />
   </ItemGroup>
@@ -27,14 +31,17 @@
     <PackageReference Include="EntityFramework" Version="6.2.0" />
     <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework" Version="2.2.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.4" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Entities\" />
-    <Folder Include="EntityFramework\" />
-    <Folder Include="Identity\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.EntityFrameworkCore">
+      <HintPath>..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore\2.2.0\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

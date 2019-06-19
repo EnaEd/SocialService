@@ -6,20 +6,36 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Repositories\**" />
+    <Compile Remove="ViewModel\**" />
+    <Content Remove="Repositories\**" />
+    <Content Remove="ViewModel\**" />
+    <EmbeddedResource Remove="Repositories\**" />
+    <EmbeddedResource Remove="ViewModel\**" />
+    <None Remove="Repositories\**" />
+    <None Remove="ViewModel\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Views\Account.cs" />
   </ItemGroup>
 
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Ninject.MVC5" Version="3.3.0" />
   </ItemGroup>
 
 
   <ItemGroup>
-    <Folder Include="ViewModel\" />
-    <Folder Include="Repositories\" />
     <Folder Include="Services\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\SocialService.ServiceLogic\SocialService.ServiceLogic.csproj" />
   </ItemGroup>
 
 </Project>

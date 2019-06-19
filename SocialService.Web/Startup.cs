@@ -5,8 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SocialService.ServiceLogic.DependensyInjection;
+using SocialService.ServiceLogic.Interfaces;
+using SocialService.ServiceLogic.Services;
 using SocialService.Web.EF;
 using SocialService.Web.Models;
+using System.Web.Mvc;
 
 namespace SocialService.Web
 {
@@ -28,7 +32,15 @@ namespace SocialService.Web
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationContext>();
 
+            services.AddTransient<IFriendService, FriendService>();
+            Dependency.CreateDependecy(services);
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            //NinjectModule orderModule = new FriendModule();
+            //NinjectModule serviceModule = new ServiceModule("DefaultConnection");
+            //var kernel = new StandardKernel(orderModule, serviceModule);
+            //DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }
 
 
