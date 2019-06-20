@@ -28,17 +28,8 @@ namespace SocialService.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IFriendService, FriendService>();
             ServiceLogic.Startup.Init(services, Configuration);
-
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new FriendsMappingProfile());
-            });
-
-            IMapper mapper = config.CreateMapper();
-            services.AddSingleton(mapper);
-
+            services.AddTransient<IFriendService, FriendService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
