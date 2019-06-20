@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using SocialService.ServiceLogic.API;
+using SocialService.ServiceLogic.Services;
 using SocialService.ServiceLogic.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,7 @@ using System.Linq;
 namespace SocialService.Web.API
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class FriendAPIController : Controller
     {
         private FriendAPIService _service;
@@ -20,16 +21,16 @@ namespace SocialService.Web.API
         }
 
         [HttpGet]
-        public IEnumerable<FriendsViewModel> Get()
+        public IEnumerable<FriendsViewModel> Get(int userId)
         {
-            IEnumerable<FriendsViewModel> result = _service.GetAll();
+            IEnumerable<FriendsViewModel> result = _service.GetAll(userId);
             return result;
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult Get(int id,int userId)
         {
-            FriendsViewModel result = _service.Get(id);
+            FriendsViewModel result = _service.Get(id,userId);
             if (result is null)
             {
                 return NotFound();
@@ -37,7 +38,6 @@ namespace SocialService.Web.API
             return new ObjectResult(result);
         }
 
-        // POST api/users
         [HttpPost]
         public IActionResult Post([FromBody]FriendsViewModel friend)
         {
@@ -58,27 +58,24 @@ namespace SocialService.Web.API
             {
                 return BadRequest();
             }
-            if (!_service.GetAll().Any(x => x.Id == friend.Id))
+            if (!_service.GetAll(friend.UserId).Any(x => x.Id == friend.Id))
             {
                 return NotFound();
             }
 
             _service.Update(friend);
-            _service.SaveChanges();
             return Ok(friend);
         }
 
-        // DELETE api/users/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int id,int userId)
         {
-            FriendsViewModel friend = _service.GetAll().FirstOrDefault(x => x.Id == id);
+            FriendsViewModel friend = _service.GetAll(userId).FirstOrDefault(x => x.Id == id);
             if (friend is null)
             {
                 return NotFound();
             }
-            _service.Delete(id);
-            _service.SaveChanges();
+            _service.Delete(id,userId);
             return Ok(friend);
         }
     }

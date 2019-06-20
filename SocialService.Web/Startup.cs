@@ -3,15 +3,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SocialService.ServiceLogic.DependensyInjection;
-using SocialService.ServiceLogic.Interfaces;
 using SocialService.ServiceLogic.MappingProfiles;
-using SocialService.ServiceLogic.Services;
-using SocialService.Web.EF;
-using SocialService.Web.Models;
+using SocialService.ServiceLogic.ViewModels;
 using System.Web.Mvc;
 
 namespace SocialService.Web
@@ -28,13 +24,6 @@ namespace SocialService.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationContext>();
-
-            services.AddTransient<IFriendService, FriendService>();
             Dependency.CreateDependecy(services);
 
             var config = new MapperConfiguration(cfg =>
@@ -45,12 +34,15 @@ namespace SocialService.Web
             IMapper mapper = config.CreateMapper();
             services.AddSingleton(mapper);
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            var configUser = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new FriendsMappingProfile());
+            });
 
-            //NinjectModule orderModule = new FriendModule();
-            //NinjectModule serviceModule = new ServiceModule("DefaultConnection");
-            //var kernel = new StandardKernel(orderModule, serviceModule);
-            //DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
+            IMapper mapperUser = config.CreateMapper();
+            services.AddSingleton(mapperUser);
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
 
@@ -66,6 +58,7 @@ namespace SocialService.Web
                 app.UseHsts();
             }
 
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SocialService.Web.Models
+namespace SocialService.ServiceLogic.ViewModels
 {
     public class LoginViewModel
     {

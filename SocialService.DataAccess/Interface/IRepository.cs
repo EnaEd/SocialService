@@ -5,11 +5,10 @@ namespace SocialService.DataAccess.Interface
 {
     public interface IRepository<T> where T : class
     {
-        IEnumerable<T> GetAll();
-        T Get(int id);
-        IEnumerable<T> Find(Func<T, Boolean> predicate);
+        IEnumerable<T> GetAll(int userId);
+        T Get(int id,int userId);
         void Create(T item);
         void Update(T item);
-        void Delete(int id);
+        void Delete(int id,int userId);
     }
 }

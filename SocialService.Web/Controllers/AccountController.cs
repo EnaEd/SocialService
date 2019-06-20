@@ -2,19 +2,21 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using SocialService.Web.Models;
+using SocialService.ServiceLogic.ViewModels;
 
 namespace SocialService.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<UserViewModel> _userManager;
+        private readonly SignInManager<UserViewModel> _signInManager;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController()
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            //_userManager = userManager;
+            //_signInManager = signInManager;
         }
+
         [HttpGet]
         public IActionResult Register()
         {
@@ -25,7 +27,7 @@ namespace SocialService.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.Email };
+                UserViewModel user = new UserViewModel { Email = model.Email, UserName = model.Email };
                 
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

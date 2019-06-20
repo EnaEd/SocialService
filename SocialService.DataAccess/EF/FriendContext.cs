@@ -1,14 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SocialService.DataAccess.Entities;
+
 
 namespace SocialService.DataAccess.EF
 {
-    public class FriendContext : DbContext
+    public class ApplicationDBContext : IdentityDbContext<User>
     {
         private string _connectionString;
         public DbSet<Friend> Friends { get; set; }
 
-        public FriendContext(string connectionString)
+        public ApplicationDBContext(string connectionString)
         {
             _connectionString = connectionString;
             Database.EnsureCreated();
