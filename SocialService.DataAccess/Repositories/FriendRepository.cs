@@ -1,16 +1,17 @@
-﻿using SocialService.DataAccess.EF;
-using SocialService.DataAccess.Entities;
+﻿using SocialService.DataAccess.Entities;
 using SocialService.DataAccess.Interface;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 
 namespace SocialService.DataAccess.Repositories
 {
     public class FriendRepository : BaseRepository<Friend>, IRepository<Friend>
     {
+        public FriendRepository(string connectionString) : base(connectionString)
+        {
 
+        }
         public void Delete(int id)
         {
             Friend friend = _context.Friends.Find(id);
@@ -44,7 +45,7 @@ namespace SocialService.DataAccess.Repositories
 
         public void Update(Friend item)
         {
-            //_context.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+
             Friend friend = _context.Friends.FirstOrDefault(x => x.Id == item.Id);
             if (friend != null)
             {

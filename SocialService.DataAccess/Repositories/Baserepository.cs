@@ -3,7 +3,6 @@ using SocialService.DataAccess.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SocialService.DataAccess.Repositories
 {
@@ -14,9 +13,9 @@ namespace SocialService.DataAccess.Repositories
         protected bool _disposed = false;
 
 
-        public BaseRepository()
+        public BaseRepository(string connectionString)
         {
-            _context = new FriendContext();
+            _context = new FriendContext(connectionString);
             _dbSet = _context.Set<T>();
         }
 

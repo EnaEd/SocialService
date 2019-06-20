@@ -2,25 +2,20 @@
 using SocialService.DataAccess.Entities;
 using SocialService.DataAccess.Interface;
 using SocialService.DataAccess.Repositories;
-using SocialService.ServiceLogic.DTO;
-using SocialService.ServiceLogic.MappingProfiles;
 using SocialService.ServiceLogic.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SocialService.ServiceLogic.API
 {
-    public class FriendAPIService:BaseService
+    public class FriendAPIService : BaseService
     {
         private readonly IMapper _mapper;
         public IRepository<Friend> Database { get; set; }
 
-        public FriendAPIService(/*IRepository<Friend> repository*/IMapper mapper)
+        public FriendAPIService(string connectionString, IMapper mapper) : base(connectionString)
         {
-            //Database = repository;
-            Database = new FriendRepository();
-           _mapper = mapper;
+            Database = new FriendRepository(connectionString);
+            _mapper = mapper;
         }
         public void Delete(int id)
         {
@@ -43,17 +38,13 @@ namespace SocialService.ServiceLogic.API
 
         public void Create(FriendsViewModel item)
         {
-            //Friend result = _mapper.Map<Friend>(item);
-            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FriendDTO, FriendsViewModel>()).CreateMapper();
-            //var friends = mapper.Map<FriendsViewModel, Friend>(item);
             Friend friend = new Friend { Name = item.Name, Email = item.Email, Phone = item.Phone };
             Database.Create(friend);
         }
 
         public void Update(FriendsViewModel item)
         {
-            //Friend result = _mapper.Map<Friend>(item);
-            Friend friend = new Friend { Name = item.Name, Email = item.Email, Phone = item.Phone,Id=item.Id };
+            Friend friend = new Friend { Name = item.Name, Email = item.Email, Phone = item.Phone, Id = item.Id };
             Database.Update(friend);
         }
     }

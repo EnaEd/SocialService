@@ -5,9 +5,9 @@ namespace SocialService.ServiceLogic.API
     public class BaseService
     {
         protected FriendContext _context;
-        public BaseService()
+        public BaseService(string connectionString)
         {
-            _context = new FriendContext();
+            _context = new FriendContext(connectionString);
         }
 
         public void SaveChanges()
