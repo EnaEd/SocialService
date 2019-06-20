@@ -5,16 +5,16 @@ using SocialService.DataAccess.Repositories;
 using SocialService.ServiceLogic.ViewModels;
 using System.Collections.Generic;
 
-namespace SocialService.ServiceLogic.API
+namespace SocialService.ServiceLogic.Services
 {
     public class FriendAPIService : BaseService
     {
         private readonly IMapper _mapper;
         public IRepository<Friend> Database { get; set; }
 
-        public FriendAPIService(string connectionString, IMapper mapper) : base(connectionString)
+        public FriendAPIService( IMapper mapper) : base()
         {
-            Database = new FriendRepository(connectionString);
+            Database = new FriendRepository();
             _mapper = mapper;
         }
         public void Delete(int id)

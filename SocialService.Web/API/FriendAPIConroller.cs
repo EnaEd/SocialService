@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using SocialService.ServiceLogic.API;
+using SocialService.ServiceLogic.Services;
 using SocialService.ServiceLogic.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ namespace SocialService.Web.API
         public FriendAPIController(IConfiguration configuration, IMapper mapper)
         {
             _connectionString = configuration.GetConnectionString("FriendBaseConnection");
-            _service = new FriendAPIService(_connectionString, mapper);
+            _service = new FriendAPIService(mapper);
         }
 
         [HttpGet]

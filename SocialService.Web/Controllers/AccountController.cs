@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using SocialService.Web.Models;
+using SocialService.DataAccess.Entities;
 
 namespace SocialService.Web.Controllers
 {

@@ -5,10 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="DTO\UserDTO.cs" />
-    <Compile Remove="Helpers\OperationDetails.cs" />
-    <Compile Remove="Interfaces\IServiceCreator.cs" />
-    <Compile Remove="Interfaces\IUserService.cs" />
+    <Compile Remove="DependensyInjection\**" />
+    <EmbeddedResource Remove="DependensyInjection\**" />
+    <None Remove="DependensyInjection\**" />
   </ItemGroup>
 
   <ItemGroup>

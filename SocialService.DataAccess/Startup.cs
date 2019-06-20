@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SocialService.DataAccess.EF;
 using SocialService.DataAccess.Entities;
+using SocialService.DataAccess.Interface;
+using SocialService.DataAccess.Repositories;
 
 namespace SocialService.DataAccess
 {
@@ -11,9 +13,8 @@ namespace SocialService.DataAccess
     {
         public static void Init(IServiceCollection services, IConfiguration configuration )
         {
-            services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
+            services.AddTransient<IRepository<Friend>, FriendRepository>();
+            services.AddScoped<ApplicationContext, ApplicationContext>();
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationContext>();
         }
