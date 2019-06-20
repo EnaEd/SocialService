@@ -17,6 +17,7 @@ namespace SocialService.DataAccess.Repositories
             if (friend != null)
             {
                 _context.Friends.Remove(friend);
+                _context.SaveChanges();
             }
         }
 
@@ -38,11 +39,13 @@ namespace SocialService.DataAccess.Repositories
         public void Create(Friend item)
         {
             _context.Friends.Add(item);
+            _context.SaveChanges();
         }
 
         public void Update(Friend item)
         {
             _context.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.SaveChanges();
         }
     }
 }

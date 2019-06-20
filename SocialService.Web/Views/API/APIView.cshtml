@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<SocialService.ServiceLogic.ViewModels.FriendsViewModel>
 
-@{
-    ViewBag.Title = "FriendView";
-}
 
 <h2>Friend</h2>
 
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
@@ -24,6 +24,9 @@
     {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
@@ -32,7 +35,23 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Phone)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                <form action="DeleteFriend" method="post">
+                    <input type="hidden" value="@item.Id" name="id" />
+                    <input type="submit" value="Delete" />
+                </form>
+            </td>
         </tr>
     }
 
 </table>
+<form method="post">
+    <h2>Add Friend</h2>
+    <input type="text" name="name" /><br /><br />
+    <input type="text" name="email" /><br /><br />
+    <input type="text" name="phone" /><br /><br />
+    <input type="submit" name="Add" /><br />
+</form>

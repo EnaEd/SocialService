@@ -43,8 +43,11 @@ namespace SocialService.ServiceLogic.API
 
         public void Create(FriendsViewModel item)
         {
-            Friend result = _mapper.Map<Friend>(item);
-            Database.Create(result);
+            //Friend result = _mapper.Map<Friend>(item);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FriendDTO, FriendsViewModel>()).CreateMapper();
+            //var friends = mapper.Map<FriendsViewModel, Friend>(item);
+            Friend friend = new Friend { Name = item.Name, Email = item.Email, Phone = item.Phone };
+            Database.Create(friend);
         }
 
         public void Update(FriendsViewModel item)

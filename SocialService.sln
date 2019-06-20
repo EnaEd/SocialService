@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialService.Web", "SocialService.Web\SocialService.Web.csproj", "{B3F85CA4-83FA-4C41-8432-DAAA456B0BBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialService.Web", "SocialService.Web\SocialService.Web.csproj", "{B3F85CA4-83FA-4C41-8432-DAAA456B0BBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialService.DataAccess", "SocialService.DataAccess\SocialService.DataAccess.csproj", "{3626E3B6-15F4-4496-AAF7-1DED72571C49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialService.DataAccess", "SocialService.DataAccess\SocialService.DataAccess.csproj", "{3626E3B6-15F4-4496-AAF7-1DED72571C49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialService.ServiceLogic", "SocialService.ServiceLogic\SocialService.ServiceLogic.csproj", "{F93AE0EA-4901-4D2F-BDFB-02BA256004EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialService.ServiceLogic", "SocialService.ServiceLogic\SocialService.ServiceLogic.csproj", "{F93AE0EA-4901-4D2F-BDFB-02BA256004EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

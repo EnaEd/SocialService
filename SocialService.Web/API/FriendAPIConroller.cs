@@ -1,15 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using SocialService.ServiceLogic.API;
-using SocialService.ServiceLogic.DTO;
 using SocialService.ServiceLogic.ViewModels;
-using SocialService.Web.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace SocialService.Web.Controllers
+namespace SocialService.Web.API
 {
     [Route("api/[controller]")]
     public class FriendAPIController : Controller
@@ -47,7 +43,7 @@ namespace SocialService.Web.Controllers
                 return BadRequest();
             }
             _service.Create(friend);
-            _service.SaveChanges();
+            
             return Ok(friend);
         }
 

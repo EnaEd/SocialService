@@ -30,11 +30,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-
-  <ItemGroup>
     <ProjectReference Include="..\SocialService.ServiceLogic\SocialService.ServiceLogic.csproj" />
   </ItemGroup>
 
