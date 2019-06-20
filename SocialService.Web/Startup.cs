@@ -47,6 +47,7 @@ namespace SocialService.Web
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            ServiceLogic.Startup.Init(services);
             //NinjectModule orderModule = new FriendModule();
             //NinjectModule serviceModule = new ServiceModule("DefaultConnection");
             //var kernel = new StandardKernel(orderModule, serviceModule);
