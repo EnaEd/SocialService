@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace SocialService.DataAccess.Repositories
 {
-    public class FriendRepository : BaseRepository<Friend> ,IRepository<Friend>
+    public class FriendRepository : BaseRepository<Friend>, IRepository<Friend>
     {
 
         public void Delete(int id)
@@ -44,8 +44,15 @@ namespace SocialService.DataAccess.Repositories
 
         public void Update(Friend item)
         {
-            _context.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            _context.SaveChanges();
+            //_context.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            Friend friend = _context.Friends.FirstOrDefault(x => x.Id == item.Id);
+            if (friend != null)
+            {
+                friend.Name = item.Name;
+                friend.Email = item.Email;
+                friend.Phone = item.Phone;
+                _context.SaveChanges();
+            }
         }
     }
 }

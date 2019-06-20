@@ -38,5 +38,20 @@ namespace SocialService.Web.Controllers
             _friends.Delete(int.Parse(id));
             return  RedirectToAction("APIView", "API");
         }
+
+        public IActionResult EditFriend(string id)
+        {
+            FriendsViewModel friend=_friends.Get().FirstOrDefault(x => x.Id == int.Parse(id));
+
+            return PartialView(friend);
+        }
+        [HttpPost]
+        public IActionResult EditFriend(string name, string email, string phone,string id)
+        {
+            FriendsViewModel friend = new FriendsViewModel { Name = name, Email = email, Phone = phone,Id=int.Parse(id) };
+            _friends.Put(friend);
+
+            return RedirectToAction("APIView", "API");
+        }
     }
 }

@@ -52,8 +52,9 @@ namespace SocialService.ServiceLogic.API
 
         public void Update(FriendsViewModel item)
         {
-            Friend result = _mapper.Map<Friend>(item);
-            Database.Update(result);
+            //Friend result = _mapper.Map<Friend>(item);
+            Friend friend = new Friend { Name = item.Name, Email = item.Email, Phone = item.Phone,Id=item.Id };
+            Database.Update(friend);
         }
     }
 }

@@ -41,7 +41,13 @@
             <td>
                 <form action="DeleteFriend" method="post">
                     <input type="hidden" value="@item.Id" name="id" />
-                    <input type="submit" value="Delete" />
+                    <input type="submit" class="btn-outline-danger" value="Delete" />
+                </form>
+            </td>
+            <td>
+                <form action="EditFriend" method="get">
+                    <input type="hidden" value="@item.Id" name="id" />
+                    <input type="submit" class="btn-outline-dark" value="Edit" />
                 </form>
             </td>
         </tr>

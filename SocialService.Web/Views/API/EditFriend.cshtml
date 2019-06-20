@@ -1,0 +1,11 @@
+﻿@model SocialService.ServiceLogic.ViewModels.FriendsViewModel
+    
+        <title>Edit Friend</title>
+        <form action="EditFriend" method="post">
+            <input type="hidden" value="@Model.Id" name="id" /><br /><br />
+            <input type="text" value="@Model.Name" name="name" /><br /><br />
+            <input type="text" value="@Model.Email" name="email" /><br /><br />
+            <input type="text" value="@Model.Phone" name="phone" /><br /><br />
+            <input type="submit" />
+        </form>>
+    
