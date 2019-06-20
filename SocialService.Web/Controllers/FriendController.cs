@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SocialService.ServiceLogic.DTO;
 using SocialService.ServiceLogic.Interfaces;
 using SocialService.ServiceLogic.Services;
+using SocialService.ServiceLogic.ViewModels;
 using SocialService.Web.Models;
 using System;
 using System.Collections.Generic;

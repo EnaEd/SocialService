@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using SocialService.ServiceLogic.API;
+using SocialService.ServiceLogic.DTO;
+using SocialService.ServiceLogic.ViewModels;
+using SocialService.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,38 +12,75 @@ using System.Threading.Tasks;
 namespace SocialService.Web.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class FriendAPIController : Controller
     {
-        // GET api/values
+        private FriendAPIService _service;
+        public FriendAPIController(IMapper mapper)
+        {
+            _service = new FriendAPIService(mapper);
+        }
+        
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<FriendsViewModel> Get()
         {
-            return new string[] { "value1", "value2" };
+            IEnumerable<FriendsViewModel> result = _service.GetAll();
+            return result;
         }
 
-        // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            FriendsViewModel result = _service.Get(id);
+            if (result is null)
+            {
+                return NotFound();
+            }
+            return new ObjectResult(result);
         }
 
-        // POST api/values
+        // POST api/users
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]FriendsViewModel friend)
         {
+            if (friend is null)
+            {
+                return BadRequest();
+            }
+            _service.Create(friend);
+            _service.SaveChanges();
+            return Ok(friend);
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        
+        [HttpPut]
+        public IActionResult Put([FromBody]FriendsViewModel friend)
         {
+            if (friend is null)
+            {
+                return BadRequest();
+            }
+            if (!_service.GetAll().Any(x => x.Id == friend.Id))
+            {
+                return NotFound();
+            }
+
+            _service.Update(friend);
+            _service.SaveChanges();
+            return Ok(friend);
         }
 
-        // DELETE api/values/5
+        // DELETE api/users/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            FriendsViewModel friend = _service.GetAll().FirstOrDefault(x => x.Id == id);
+            if (friend is null)
+            {
+                return NotFound();
+            }
+            _service.Delete(id);
+            _service.SaveChanges();
+            return Ok(friend);
         }
     }
 }

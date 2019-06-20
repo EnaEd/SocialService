@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SocialService.ServiceLogic.DependensyInjection;
 using SocialService.ServiceLogic.Interfaces;
+using SocialService.ServiceLogic.MappingProfiles;
 using SocialService.ServiceLogic.Services;
 using SocialService.Web.EF;
 using SocialService.Web.Models;
@@ -34,6 +36,14 @@ namespace SocialService.Web
 
             services.AddTransient<IFriendService, FriendService>();
             Dependency.CreateDependecy(services);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new FriendsMappingProfile());
+            });
+
+            IMapper mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

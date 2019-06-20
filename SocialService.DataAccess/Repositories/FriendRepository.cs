@@ -8,14 +8,8 @@ using System.Linq;
 
 namespace SocialService.DataAccess.Repositories
 {
-    public class FriendRepository : IRepository<Friend>
+    public class FriendRepository : BaseRepository<Friend> ,IRepository<Friend>
     {
-        private FriendContext _context;
-
-        public FriendRepository()
-        {
-            _context = new FriendContext();
-        }
 
         public void Delete(int id)
         {
