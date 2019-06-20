@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace SocialService.Web.Models
+namespace SocialService.DataAccess.Entities
 {
     public class User : IdentityUser
     {

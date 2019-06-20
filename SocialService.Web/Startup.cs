@@ -28,14 +28,8 @@ namespace SocialService.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationContext>();
-
             services.AddTransient<IFriendService, FriendService>();
-            Dependency.CreateDependecy(services);
+            ServiceLogic.Startup.Init(services, Configuration);
 
             var config = new MapperConfiguration(cfg =>
             {
@@ -46,12 +40,6 @@ namespace SocialService.Web
             services.AddSingleton(mapper);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            ServiceLogic.Startup.Init(services);
-            //NinjectModule orderModule = new FriendModule();
-            //NinjectModule serviceModule = new ServiceModule("DefaultConnection");
-            //var kernel = new StandardKernel(orderModule, serviceModule);
-            //DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }
 
 

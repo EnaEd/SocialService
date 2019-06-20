@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using SocialService.Web.Models;
+using SocialService.DataAccess.Entities;
 
-namespace SocialService.Web.EF
+namespace SocialService.DataAccess.EF
 {
     public class ApplicationContext : IdentityDbContext<User>
     {
+        public DbSet<Friend> Friends { get; set; }
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {

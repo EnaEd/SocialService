@@ -33,4 +33,9 @@
     <ProjectReference Include="..\SocialService.ServiceLogic\SocialService.ServiceLogic.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="EF\" />
+  </ItemGroup>
+
 </Project>
