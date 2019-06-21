@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using SocialService.ServiceLogic.Services;
 using SocialService.ServiceLogic.ViewModels;
 using System.Collections.Generic;
@@ -27,7 +26,7 @@ namespace SocialService.Web.API
         [HttpGet("{id}")]
         public IActionResult Get(int id, string userId)
         {
-            FriendsViewModel result = _service.Get(id,userId);
+            FriendsViewModel result = _service.Get(id, userId);
             if (result is null)
             {
                 return NotFound();

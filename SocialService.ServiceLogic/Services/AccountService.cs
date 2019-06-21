@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SocialService.DataAccess.Entities;
 using SocialService.ServiceLogic.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SocialService.ServiceLogic.Services
 {
-    public class AccountService:IAccountService
+    public class AccountService : IAccountService
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;

@@ -15,10 +15,10 @@ namespace SocialService.DataAccess.Repositories
 
         IEnumerable<Friend> IRepository<Friend>.GetAll(string userId)
         {
-            return _dbSet.Where(x=>x.UserId==userId).ToList();
+            return _dbSet.Where(x => x.UserId == userId).ToList();
         }
 
-        Friend IRepository<Friend>.Get(int id,string userId)
+        Friend IRepository<Friend>.Get(int id, string userId)
         {
             Friend friend = _dbSet.FirstOrDefault(x => x.Id == id && x.UserId == userId);
             return _dbSet.Find(id);
@@ -42,7 +42,7 @@ namespace SocialService.DataAccess.Repositories
                 _context.SaveChanges();
             }
         }
-        public void Delete(int id,string userId)
+        public void Delete(int id, string userId)
         {
             Friend friend = _dbSet.FirstOrDefault(x => x.Id == id && x.UserId == userId);
             if (friend != null)

@@ -13,7 +13,7 @@ namespace SocialService.DataAccess.EF
         public DbSet<Friend> Friends { get; set; }
         public ApplicationContext()
         {
-            
+
             Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

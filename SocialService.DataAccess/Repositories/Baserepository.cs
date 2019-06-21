@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SocialService.DataAccess.EF;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SocialService.DataAccess.Repositories
 {

@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper;
-using Microsoft.Extensions.Configuration;
+﻿using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
-using SocialService.DataAccess.Entities;
 using SocialService.ServiceLogic.Interfaces;
 using SocialService.ServiceLogic.MappingProfiles;
 using SocialService.ServiceLogic.Services;
 
 namespace SocialService.ServiceLogic
 {
-    public  class Startup
+    public class Startup
     {
         public static void Init(IServiceCollection services)
         {
@@ -27,5 +22,5 @@ namespace SocialService.ServiceLogic
         }
     }
 
-    
+
 }

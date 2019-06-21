@@ -1,9 +1,7 @@
 ﻿using System.Linq;
-using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using SocialService.DataAccess.Entities;
 using SocialService.ServiceLogic.Interfaces;
 using SocialService.ServiceLogic.ViewModels;
