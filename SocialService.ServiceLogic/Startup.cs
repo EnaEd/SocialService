@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
+using SocialService.DataAccess.Entities;
+using SocialService.DataAccess.Interface;
+using SocialService.DataAccess.Repositories;
 using SocialService.ServiceLogic.Interfaces;
 using SocialService.ServiceLogic.MappingProfiles;
 using SocialService.ServiceLogic.Services;
@@ -19,6 +22,7 @@ namespace SocialService.ServiceLogic
             IMapper mapper = config.CreateMapper();
             services.AddSingleton(mapper);
             services.AddTransient<IAccountService, AccountService>();
+            services.AddHttpContextAccessor();
         }
     }
 

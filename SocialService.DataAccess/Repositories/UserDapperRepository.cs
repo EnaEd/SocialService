@@ -52,7 +52,7 @@ namespace SocialService.DataAccess.Repositories
         {
             using (IDbConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM Users";
+                string query = "SELECT * FROM Users ";
                 return connection.Query<User>(query);
             }
         }

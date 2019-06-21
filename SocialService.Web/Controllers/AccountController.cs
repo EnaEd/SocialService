@@ -19,27 +19,19 @@ namespace SocialService.Web.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public IActionResult Register(RegisterViewModel model)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    User user = new User { Email = model.Email };
-
-            //    var result = await _accountService.UserManager.CreateAsync(user, model.Password);
-            //    if (result.Succeeded)
-            //    {
-            //        await _accountService.SignInManager.SignInAsync(user, false);
-            //        return RedirectToAction("Index", "Home");
-            //    }
-            //    else
-            //    {
-            //        foreach (var error in result.Errors)
-            //        {
-            //            ModelState.AddModelError(string.Empty, error.Description);
-            //        }
-            //    }
-            //}
-            return View(model);
+            bool isRegistrationSuccess = false;
+            if (ModelState.IsValid)
+            {
+                isRegistrationSuccess = _accountService.OnReigstration(model);
+            }
+            
+            if (!isRegistrationSuccess)
+            {
+                return View(model);
+            }
+            return RedirectToAction("APIView", "API");
         }
 
         [HttpGet]
@@ -52,30 +44,17 @@ namespace SocialService.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    var result =
-            //        await _accountService.SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-            //    if (result.Succeeded)
-            //    {
-            //        if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
-            //        {
-            //            return Redirect(model.ReturnUrl);
-            //        }
-            //        else
-            //        {
-            //            return RedirectToAction("APIView", "API");
-            //            //return Redirect("https://localhost:44396/api/values");  
-
-
-            //        }
-            //    }
-            //    else
-            //    {
-            //        ModelState.AddModelError("", "Wrong login or password");
-            //    }
-            //}
-            return View(model);
+            bool isLogin = false;
+            if (ModelState.IsValid)
+            {
+                isLogin = await _accountService.OnLogin(model);
+            }
+            if (!isLogin)
+            {
+                ModelState.AddModelError("", "Wrong login or password");
+                return View(model);
+            }
+            return RedirectToAction("APIView", "API");
         }
 
         [HttpPost]

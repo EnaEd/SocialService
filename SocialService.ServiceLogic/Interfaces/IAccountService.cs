@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SocialService.DataAccess.Entities;
+using SocialService.ServiceLogic.ViewModels;
+using System.Threading.Tasks;
 
 namespace SocialService.ServiceLogic.Interfaces
 {
     public interface IAccountService
     {
-        //UserManager<User> UserManager { get; }
-        //SignInManager<User> SignInManager { get; }
+        Task<bool> OnLogin(LoginViewModel loginViewModel);
+        bool OnReigstration(RegisterViewModel registerViewModel);
     }
 }

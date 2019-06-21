@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,7 @@ namespace SocialService.Web.Controllers
     {
         private FriendAPIController _friends;
         private readonly IAccountService _accountService;
-        public APIController(IConfiguration configuration,IAccountService accountService, IMapper mapper, UserManager<User> userManager)
+        public APIController(IConfiguration configuration,IAccountService accountService, IMapper mapper)
         {
             _friends = new FriendAPIController(configuration, mapper);
             _accountService = accountService;
@@ -29,8 +30,9 @@ namespace SocialService.Web.Controllers
         [HttpPost]
         public IActionResult APIView(string name, string email, string phone)
         {
-            //var id = _accountService.UserManager.GetUserId(this.User);
-            FriendsViewModel friend = new FriendsViewModel { Name = name, Email = email, Phone = phone, UserId = null };
+            var userId = User.FindFirstValue(ClaimTypes.Name);
+            var use = User.Identities;
+            FriendsViewModel friend = new FriendsViewModel { Name = name, Email = email, Phone = phone, UserId = userId };
             _friends.Post(friend);
             return View(_friends.Get(null));
         }

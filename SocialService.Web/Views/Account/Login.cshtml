@@ -1,6 +1,7 @@
 ﻿@model SocialService.ServiceLogic.ViewModels.LoginViewModel
 
 <h2>Enter to application</h2>
+<a asp-action="Register" asp-controller="Account">Registration</a>
 <form method="post" asp-controller="Account" asp-action="Login"
       >
     <div asp-validation-summary="ModelOnly"></div>
