@@ -12,10 +12,8 @@ namespace SocialService.Web.API
     public class FriendAPIController : Controller
     {
         private FriendAPIService _service;
-        private string _connectionString;
-        public FriendAPIController(IConfiguration configuration, IMapper mapper)
+        public FriendAPIController(IMapper mapper)
         {
-            _connectionString = configuration.GetConnectionString("FriendBaseConnection");
             _service = new FriendAPIService(mapper);
         }
 

@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
-using SocialService.Web.Models;
 using SocialService.DataAccess.Entities;
 using SocialService.ServiceLogic.Interfaces;
+using SocialService.ServiceLogic.ViewModels;
 
 namespace SocialService.Web.Controllers
 {
