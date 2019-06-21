@@ -6,16 +6,16 @@ namespace SocialService.ServiceLogic.Services
 {
     public class AccountService : IAccountService
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        //private readonly UserManager<User> _userManager;
+        //private readonly SignInManager<User> _signInManager;
 
-        public AccountService(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountService()
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            //_userManager = userManager;
+            //_signInManager = signInManager;
         }
 
-        public UserManager<User> UserManager { get => _userManager; }
-        public SignInManager<User> SignInManager { get => _signInManager; }
+        //public UserManager<User> UserManager { get => _userManager; }
+        //public SignInManager<User> SignInManager { get => _signInManager; }
     }
 }

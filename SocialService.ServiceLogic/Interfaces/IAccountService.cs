@@ -5,7 +5,7 @@ namespace SocialService.ServiceLogic.Interfaces
 {
     public interface IAccountService
     {
-        UserManager<User> UserManager { get; }
-        SignInManager<User> SignInManager { get; }
+        //UserManager<User> UserManager { get; }
+        //SignInManager<User> SignInManager { get; }
     }
 }
