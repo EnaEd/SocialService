@@ -23,7 +23,7 @@ namespace SocialService.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.Email };
+                User user = new User { Email = model.Email };
 
                 var result = await _accountService.UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

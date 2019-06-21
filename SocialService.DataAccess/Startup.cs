@@ -14,6 +14,7 @@ namespace SocialService.DataAccess
         {
             services.AddTransient<IRepository<Friend>, FriendRepository>();
             services.AddTransient<IDapperRepository<Friend>, FriendDapperRepository>();
+            services.AddTransient<IDapperRepository<User>, UserDapperRepository>();
 
             services.AddScoped<ApplicationContext, ApplicationContext>();
 
