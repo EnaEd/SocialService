@@ -4,7 +4,10 @@ using System.Text;
 using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SocialService.DataAccess.Entities;
+using SocialService.ServiceLogic.Interfaces;
 using SocialService.ServiceLogic.MappingProfiles;
+using SocialService.ServiceLogic.Services;
 
 namespace SocialService.ServiceLogic
 {
@@ -20,6 +23,7 @@ namespace SocialService.ServiceLogic
 
             IMapper mapper = config.CreateMapper();
             services.AddSingleton(mapper);
+            services.AddTransient<IAccountService, AccountService>();
         }
     }
 
