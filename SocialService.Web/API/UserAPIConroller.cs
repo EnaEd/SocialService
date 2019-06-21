@@ -9,25 +9,25 @@ using System.Linq;
 namespace SocialService.Web.API
 {
     [Route("api/[controller]")]
-    public class FriendAPIController : Controller
+    public class UserAPIConroller : Controller
     {
-        private FriendAPIService _service;
-        public FriendAPIController(IConfiguration configuration,IMapper mapper)
+        private UserAPIService _service;
+        public UserAPIConroller(IConfiguration configuration,IMapper mapper)
         {
-            _service = new FriendAPIService(configuration, mapper);
+            _service = new UserAPIService(configuration, mapper);
         }
 
         [HttpGet]
-        public IEnumerable<FriendsViewModel> Get(string userId)
+        public IEnumerable<UserViewModel> Get(string userId)
         {
-            IEnumerable<FriendsViewModel> result = _service.GetAll(userId);
+            IEnumerable<UserViewModel> result = _service.GetAll(userId);
             return result;
         }
 
         [HttpGet("{id}")]
-        public FriendsViewModel Get(int id, string userId)
+        public UserViewModel Get(int id, string userId)
         {
-            FriendsViewModel result = _service.Get(id, userId);
+            UserViewModel result = _service.Get(id, userId);
             if (result is null)
             {
                 return null;
@@ -37,7 +37,7 @@ namespace SocialService.Web.API
 
         // POST api/users
         [HttpPost]
-        public void Post([FromBody]FriendsViewModel friend)
+        public void Post([FromBody]UserViewModel friend)
         {
             if (friend != null)
             {
@@ -47,25 +47,25 @@ namespace SocialService.Web.API
 
 
         [HttpPut]
-        public void Put([FromBody]FriendsViewModel friend)
+        public void Put([FromBody]UserViewModel user)
         {
-            if (friend is null)
+            if (user is null)
             {
                 return ;
             }
-            if (!_service.GetAll(friend.UserId).Any(x => x.Id == friend.Id))
+            if (!_service.GetAll(user.Id).Any(x => x.Id == user.Id))
             {
                 return ;
             }
-            _service.Update(friend);
+            _service.Update(user);
         }
 
         // DELETE api/users/5
         [HttpDelete("{id}")]
         public void Delete(int id, string userId)
         {
-            FriendsViewModel friend = _service.GetAll(userId).FirstOrDefault(x => x.Id == id);
-            if (friend != null)
+            UserViewModel user = _service.GetAll(userId).FirstOrDefault();
+            if (user != null)
             {
                 _service.Delete(id, userId);
             }
