@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using SocialService.DataAccess.EF;
 using SocialService.DataAccess.Entities;
@@ -16,8 +17,11 @@ namespace SocialService.DataAccess
 
             services.AddScoped<ApplicationContext, ApplicationContext>();
 
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationContext>();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+               .AddCookie(options => 
+                {
+                   options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+               });
         }
     }
 
