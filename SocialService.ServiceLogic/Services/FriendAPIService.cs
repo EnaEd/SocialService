@@ -7,19 +7,17 @@ using System.Collections.Generic;
 
 namespace SocialService.ServiceLogic.Services
 {
-    public class FriendAPIService : BaseService
+    public class FriendAPIService : BaseAPIService
     {
-        private readonly IMapper _mapper;
         public IRepository<Friend> Database { get; set; }
 
-        public FriendAPIService( IMapper mapper) : base()
+        public FriendAPIService(IMapper mapper) : base(mapper)
         {
             Database = new FriendRepository();
-            _mapper = mapper;
         }
-        public void Delete(int id,string userId)
+        public void Delete(int id, string userId)
         {
-            Database.Delete(id,userId);
+            Database.Delete(id, userId);
         }
 
         public IEnumerable<FriendsViewModel> GetAll(string userId)
@@ -31,10 +29,9 @@ namespace SocialService.ServiceLogic.Services
         public FriendsViewModel Get(int id, string userId)
         {
 
-            FriendsViewModel friend = _mapper.Map<FriendsViewModel>(Database.Get(id,userId));
+            FriendsViewModel friend = _mapper.Map<FriendsViewModel>(Database.Get(id, userId));
             return friend;
         }
-
 
         public void Create(FriendsViewModel item)
         {
