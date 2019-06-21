@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using SocialService.DataAccess.Entities;
 using SocialService.DataAccess.Interface;
 using SocialService.DataAccess.Repositories;
@@ -10,9 +11,9 @@ namespace SocialService.ServiceLogic.Services
     public class UserAPIService : BaseAPIService
     {
         private IDapperRepository<User> _userDapperRepository;
-        public UserAPIService(IMapper mapper) : base(mapper)
+        public UserAPIService(IConfiguration configuration,IMapper mapper) : base(mapper)
         {
-            _userDapperRepository = new UserDapperRepository();
+            _userDapperRepository = new UserDapperRepository(configuration);
         }
 
         public void Delete(int id, string userId)

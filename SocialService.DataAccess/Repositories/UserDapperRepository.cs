@@ -15,12 +15,9 @@ namespace SocialService.DataAccess.Repositories
     {
         private string _connectionString;
         private readonly IConfiguration _configuration;
-        public UserDapperRepository()
+        public UserDapperRepository(IConfiguration configuration)
         {
-            _configuration = new ConfigurationBuilder()
-           .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-           .AddJsonFile("appsettings.json")
-           .Build();
+            _configuration = configuration;
             _connectionString = _configuration.GetConnectionString("DefaultConnection");
         }
 

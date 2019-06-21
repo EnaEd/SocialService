@@ -9,12 +9,12 @@ namespace SocialService.DataAccess.EF
 {
     public class ApplicationContext : DbContext
     {
-        private string _connectionString;
+        private IConfiguration _configuration;
         public DbSet<Friend> Friends { get; set; }
         public DbSet<User> Users { get; set; }
-        public ApplicationContext()
+        public ApplicationContext(IConfiguration configuration)
         {
-
+            _configuration = configuration;
             Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -23,7 +23,7 @@ namespace SocialService.DataAccess.EF
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
             .AddJsonFile("appsettings.json")
             .Build();
-            optionsBuilder.UseSqlServer(ConfigurationExtensions.GetConnectionString(configuration, "DefaultConnection"));
+            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
         }
     }
 }

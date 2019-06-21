@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using SocialService.DataAccess.Entities;
 using SocialService.DataAccess.Interface;
 using SocialService.DataAccess.Repositories;
@@ -12,10 +13,10 @@ namespace SocialService.ServiceLogic.Services
         private IRepository<Friend> _friendRepository;
         private IDapperRepository<Friend> _friendDapperRepository;
 
-        public FriendAPIService(IMapper mapper) : base(mapper)
+        public FriendAPIService(IConfiguration configuration,IMapper mapper) : base(mapper)
         {
-            _friendRepository = new FriendRepository();
-            _friendDapperRepository = new FriendDapperRepository();
+            _friendRepository = new FriendRepository(configuration);
+            _friendDapperRepository = new FriendDapperRepository(configuration);
         }
         public void Delete(int id, string userId)
         {
