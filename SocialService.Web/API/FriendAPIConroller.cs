@@ -64,7 +64,6 @@ namespace SocialService.Web.API
             }
 
             _service.Update(friend);
-            _service.SaveChanges();
             return Ok(friend);
         }
 
@@ -72,13 +71,13 @@ namespace SocialService.Web.API
         [HttpDelete("{id}")]
         public IActionResult Delete(int id, string userId)
         {
+
             FriendsViewModel friend = _service.GetAll(userId).FirstOrDefault(x => x.Id == id);
             if (friend is null)
             {
                 return NotFound();
             }
             _service.Delete(id, userId);
-            _service.SaveChanges();
             return Ok(friend);
         }
     }

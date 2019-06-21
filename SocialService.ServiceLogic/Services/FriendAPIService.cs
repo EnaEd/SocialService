@@ -38,13 +38,13 @@ namespace SocialService.ServiceLogic.Services
 
         public void Create(FriendsViewModel item)
         {
-            Friend friend = new Friend { Name = item.Name, Email = item.Email, Phone = item.Phone,UserId=item.UserId };
+            Friend friend = _mapper.Map<Friend>(item);
             Database.Create(friend);
         }
 
         public void Update(FriendsViewModel item)
         {
-            Friend friend = new Friend { Name = item.Name, Email = item.Email, Phone = item.Phone, Id = item.Id };
+            Friend friend = _mapper.Map<Friend>(item);
             Database.Update(friend);
         }
     }

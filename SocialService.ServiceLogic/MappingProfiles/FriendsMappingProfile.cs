@@ -12,6 +12,7 @@ namespace SocialService.ServiceLogic.MappingProfiles
         public FriendsMappingProfile() : base()
         {
             CreateMap<Friend, FriendsViewModel>();
+            CreateMap<FriendsViewModel, Friend>();
         }
     }
 }
