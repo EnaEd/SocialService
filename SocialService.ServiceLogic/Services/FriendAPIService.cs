@@ -16,7 +16,7 @@ namespace SocialService.ServiceLogic.Services
         public FriendAPIService(IConfiguration configuration,IMapper mapper) : base(mapper)
         {
             Database = new FriendRepository(configuration);
-            DatabaseDapper = new FriendDapperRepository();
+            DatabaseDapper = new FriendDapperRepository(configuration);
         }
         public void Delete(int id, string userId)
         {
