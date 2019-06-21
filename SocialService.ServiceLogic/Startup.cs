@@ -10,9 +10,9 @@ namespace SocialService.ServiceLogic
 {
     public  class Startup
     {
-        public static void Init(IServiceCollection services,IConfiguration configuration)
+        public static void Init(IServiceCollection services)
         {
-            DataAccess.Startup.Init(services,configuration);
+            DataAccess.Startup.Init(services);
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new FriendsMappingProfile());
