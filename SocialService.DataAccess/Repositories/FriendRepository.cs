@@ -12,29 +12,16 @@ namespace SocialService.DataAccess.Repositories
         {
 
         }
-        public void Delete(int id)
+
+        IEnumerable<Friend> IRepository<Friend>.GetAll(string userId)
         {
-            Friend friend = _context.Friends.Find(id);
-            if (friend != null)
-            {
-                _dbSet.Remove(friend);
-                _context.SaveChanges();
-            }
+            return _dbSet.Where(x=>x.UserId==userId).ToList();
         }
 
-        IEnumerable<Friend> IRepository<Friend>.GetAll()
+        Friend IRepository<Friend>.Get(int id,string userId)
         {
-            return _dbSet;
-        }
-
-        Friend IRepository<Friend>.Get(int id)
-        {
+            Friend friend = _dbSet.FirstOrDefault(x => x.Id == id && x.UserId == userId);
             return _dbSet.Find(id);
-        }
-
-        public IEnumerable<Friend> Find(Func<Friend, bool> predicate)
-        {
-            return _dbSet.Where(predicate).ToList();
         }
 
         public void Create(Friend item)
@@ -52,6 +39,15 @@ namespace SocialService.DataAccess.Repositories
                 friend.Name = item.Name;
                 friend.Email = item.Email;
                 friend.Phone = item.Phone;
+                _context.SaveChanges();
+            }
+        }
+        public void Delete(int id,string userId)
+        {
+            Friend friend = _dbSet.FirstOrDefault(x => x.Id == id && x.UserId == userId);
+            if (friend != null)
+            {
+                _dbSet.Remove(friend);
                 _context.SaveChanges();
             }
         }

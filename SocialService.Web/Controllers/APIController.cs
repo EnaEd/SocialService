@@ -1,7 +1,10 @@
 ﻿using System.Linq;
+using System.Security.Claims;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using SocialService.DataAccess.Entities;
 using SocialService.ServiceLogic.ViewModels;
 using SocialService.Web.API;
 
@@ -11,33 +14,37 @@ namespace SocialService.Web.Controllers
     public class APIController : Controller
     {
         private FriendAPIController _friends;
-        public APIController(IConfiguration configuration, IMapper mapper)
+        private readonly UserManager<User> _userManager;
+        public APIController(IConfiguration configuration, IMapper mapper, UserManager<User> userManager)
         {
             _friends = new FriendAPIController(configuration, mapper);
+            _userManager = userManager;
         }
         [HttpGet]
         public IActionResult APIView()
         {
-
-            return View(_friends.Get());
+            var id=_userManager.GetUserId(this.User);
+            return View(_friends.Get(id));
         }
         [HttpPost]
         public IActionResult APIView(string name, string email, string phone)
         {
-            FriendsViewModel friend = new FriendsViewModel { Name = name, Email = email, Phone = phone };
+            var id = _userManager.GetUserId(this.User);
+            FriendsViewModel friend = new FriendsViewModel { Name = name, Email = email, Phone = phone,UserId=id };
             _friends.Post(friend);
-            return View(_friends.Get());
+            return View(_friends.Get(id));
         }
         [HttpPost]
-        public IActionResult DeleteFriend(string id)
+        public IActionResult DeleteFriend(string id, string userId)
         {
-            _friends.Delete(int.Parse(id));
+            _friends.Delete(int.Parse(id),userId);
             return RedirectToAction("APIView", "API");
         }
 
         public IActionResult EditFriend(string id)
         {
-            FriendsViewModel friend = _friends.Get().FirstOrDefault(x => x.Id == int.Parse(id));
+            var userId = _userManager.GetUserId(ClaimsPrincipal.Current);
+            FriendsViewModel friend = _friends.Get(userId).FirstOrDefault(x => x.Id == int.Parse(id));
 
             return PartialView(friend);
         }

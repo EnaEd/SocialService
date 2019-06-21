@@ -20,16 +20,16 @@ namespace SocialService.Web.API
         }
 
         [HttpGet]
-        public IEnumerable<FriendsViewModel> Get()
+        public IEnumerable<FriendsViewModel> Get(string userId)
         {
-            IEnumerable<FriendsViewModel> result = _service.GetAll();
+            IEnumerable<FriendsViewModel> result = _service.GetAll(userId);
             return result;
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult Get(int id, string userId)
         {
-            FriendsViewModel result = _service.Get(id);
+            FriendsViewModel result = _service.Get(id,userId);
             if (result is null)
             {
                 return NotFound();
@@ -58,7 +58,7 @@ namespace SocialService.Web.API
             {
                 return BadRequest();
             }
-            if (!_service.GetAll().Any(x => x.Id == friend.Id))
+            if (!_service.GetAll(friend.UserId).Any(x => x.Id == friend.Id))
             {
                 return NotFound();
             }
@@ -70,14 +70,14 @@ namespace SocialService.Web.API
 
         // DELETE api/users/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int id, string userId)
         {
-            FriendsViewModel friend = _service.GetAll().FirstOrDefault(x => x.Id == id);
+            FriendsViewModel friend = _service.GetAll(userId).FirstOrDefault(x => x.Id == id);
             if (friend is null)
             {
                 return NotFound();
             }
-            _service.Delete(id);
+            _service.Delete(id, userId);
             _service.SaveChanges();
             return Ok(friend);
         }
