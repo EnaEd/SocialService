@@ -22,7 +22,6 @@ namespace SocialService.DataAccess.EF
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
             .AddJsonFile("appsettings.json")
             .Build();
-            var str = configuration.GetConnectionString("DefaultConnection");
             optionsBuilder.UseSqlServer(ConfigurationExtensions.GetConnectionString(configuration, "DefaultConnection"));
         }
     }

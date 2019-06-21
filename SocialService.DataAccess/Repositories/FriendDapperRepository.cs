@@ -1,35 +1,71 @@
-﻿using SocialService.DataAccess.Entities;
+﻿using Microsoft.Extensions.Configuration;
+using SocialService.DataAccess.Entities;
 using SocialService.DataAccess.Interface;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using Dapper;
+using System.Linq;
 
 namespace SocialService.DataAccess.Repositories
 {
-    public class FriendDapperRepository : IRepository<Friend>
+    public class FriendDapperRepository : IDapperRepository<Friend>
     {
+        private string _connectionString;
+        private readonly IConfiguration _configuration;
+        public FriendDapperRepository()
+        {
+            _configuration = new ConfigurationBuilder()
+           .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+           .AddJsonFile("appsettings.json")
+           .Build();
+            _connectionString = _configuration.GetConnectionString("DefaultConnection");
+        }
+
         public void Create(Friend item)
         {
-            throw new NotImplementedException();
+            using (IDbConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "INSERT INTO Friends(Name,Email,Phone,UserId) Values(@Name,@Email,@Phone,@UserId)";
+                connection.Execute(query, item);
+            }
         }
 
         public void Delete(int id, string userId)
         {
-            throw new NotImplementedException();
+            using (IDbConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "DELETE FROM Friends WHERE Id=@id AND UserId=@userId";
+                connection.Execute(query, new { id, userId });
+            }
         }
 
         public Friend Get(int id, string userId)
         {
-            throw new NotImplementedException();
+            using (IDbConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT * FROM Friends WHERE Id=@id AND UserId=@userId";
+                return connection.Query<Friend>(query, new { id, userId }).FirstOrDefault();
+            }
         }
 
         public IEnumerable<Friend> GetAll(string userId)
         {
-            throw new NotImplementedException();
+            using (IDbConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT * FROM Friends";
+                return connection.Query<Friend>(query);
+            }
         }
 
         public void Update(Friend item)
         {
-            throw new NotImplementedException();
+            using (IDbConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "UPDATE Friends SET Id = @Id, Name = @Name, Email = @Email, Phone = @Phone, UserId = @UserId WHERE Id = @Id AND UserId = @UserId";
+                connection.Execute(query,item);
+            }
         }
     }
 }
