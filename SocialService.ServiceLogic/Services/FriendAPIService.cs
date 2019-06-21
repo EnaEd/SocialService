@@ -10,10 +10,12 @@ namespace SocialService.ServiceLogic.Services
     public class FriendAPIService : BaseAPIService
     {
         public IRepository<Friend> Database { get; set; }
+        public IDapperRepository<Friend> DatabaseDapper { get; set; }
 
         public FriendAPIService(IMapper mapper) : base(mapper)
         {
             Database = new FriendRepository();
+            DatabaseDapper = new FriendDapperRepository();
         }
         public void Delete(int id, string userId)
         {
@@ -22,7 +24,8 @@ namespace SocialService.ServiceLogic.Services
 
         public IEnumerable<FriendsViewModel> GetAll(string userId)
         {
-            IEnumerable<FriendsViewModel> result = _mapper.Map<IEnumerable<FriendsViewModel>>(Database.GetAll(userId));
+            //Use Dapper instead of EF
+            IEnumerable<FriendsViewModel> result = _mapper.Map<IEnumerable<FriendsViewModel>>(DatabaseDapper.GetAll(userId));
             return result;
         }
 

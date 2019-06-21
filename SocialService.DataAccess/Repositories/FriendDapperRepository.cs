@@ -54,8 +54,8 @@ namespace SocialService.DataAccess.Repositories
         {
             using (IDbConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM Friends";
-                return connection.Query<Friend>(query);
+                string query = "SELECT * FROM Friends WHERE UserId=@userId";
+                return connection.Query<Friend>(query, new { userId });
             }
         }
 
@@ -64,7 +64,7 @@ namespace SocialService.DataAccess.Repositories
             using (IDbConnection connection = new SqlConnection(_connectionString))
             {
                 string query = "UPDATE Friends SET Id = @Id, Name = @Name, Email = @Email, Phone = @Phone, UserId = @UserId WHERE Id = @Id AND UserId = @UserId";
-                connection.Execute(query,item);
+                connection.Execute(query, item);
             }
         }
     }

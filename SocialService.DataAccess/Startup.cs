@@ -12,7 +12,10 @@ namespace SocialService.DataAccess
         public static void Init(IServiceCollection services)
         {
             services.AddTransient<IRepository<Friend>, FriendRepository>();
+            services.AddTransient<IDapperRepository<Friend>, FriendDapperRepository>();
+
             services.AddScoped<ApplicationContext, ApplicationContext>();
+
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationContext>();
         }
