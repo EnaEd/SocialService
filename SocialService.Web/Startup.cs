@@ -19,7 +19,7 @@ namespace SocialService.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            ServiceLogic.Startup.Init(services);
+            ServiceLogic.Startup.Init(services,Configuration);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

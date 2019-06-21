@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SocialService.DataAccess.EF;
 using SocialService.DataAccess.Entities;
@@ -9,7 +10,7 @@ namespace SocialService.DataAccess
 {
     public class Startup
     {
-        public static void Init(IServiceCollection services)
+        public static void Init(IServiceCollection services,IConfiguration configuration)
         {
             services.AddTransient<IRepository<Friend>, FriendRepository>();
             services.AddTransient<IDapperRepository<Friend>, FriendDapperRepository>();

@@ -1,4 +1,5 @@
-﻿using SocialService.DataAccess.Entities;
+﻿using Microsoft.Extensions.Configuration;
+using SocialService.DataAccess.Entities;
 using SocialService.DataAccess.Interface;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace SocialService.DataAccess.Repositories
 {
     public class FriendRepository : BaseRepository<Friend>, IRepository<Friend>
     {
-        public FriendRepository() : base()
+        public FriendRepository(IConfiguration configuration ) : base(configuration)
         {
 
         }

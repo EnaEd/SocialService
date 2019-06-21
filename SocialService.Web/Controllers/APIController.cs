@@ -2,6 +2,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using SocialService.DataAccess.Entities;
 using SocialService.ServiceLogic.Interfaces;
 using SocialService.ServiceLogic.ViewModels;
@@ -14,9 +15,9 @@ namespace SocialService.Web.Controllers
     {
         private FriendAPIController _friends;
         private readonly IAccountService _accountService;
-        public APIController(IAccountService accountService, IMapper mapper, UserManager<User> userManager)
+        public APIController(IConfiguration configuration, IAccountService accountService, IMapper mapper, UserManager<User> userManager)
         {
-            _friends = new FriendAPIController(mapper);
+            _friends = new FriendAPIController(configuration, mapper);
             _accountService = accountService;
         }
         [HttpGet]

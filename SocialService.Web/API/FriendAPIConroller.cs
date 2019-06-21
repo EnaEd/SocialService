@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using SocialService.ServiceLogic.Services;
 using SocialService.ServiceLogic.ViewModels;
 using System.Collections.Generic;
@@ -11,9 +12,9 @@ namespace SocialService.Web.API
     public class FriendAPIController : Controller
     {
         private FriendAPIService _service;
-        public FriendAPIController(IMapper mapper)
+        public FriendAPIController(IConfiguration configuration ,IMapper mapper)
         {
-            _service = new FriendAPIService(mapper);
+            _service = new FriendAPIService(configuration, mapper);
         }
 
         [HttpGet]

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using SocialService.DataAccess.EF;
 
 namespace SocialService.DataAccess.Repositories
@@ -10,9 +11,9 @@ namespace SocialService.DataAccess.Repositories
         protected bool _disposed = false;
 
 
-        public BaseRepository()
+        public BaseRepository(IConfiguration configuration)
         {
-            _context = new ApplicationContext();
+            _context = new ApplicationContext(configuration );
             _dbSet = _context.Set<T>();
         }
     }
