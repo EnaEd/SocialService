@@ -61,7 +61,7 @@ namespace SocialService.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOff()
         {
-            //await _accountService.SignInManager.SignOutAsync();
+            _accountService.OnLogout();
             return RedirectToAction("Index", "Home");
         }
     }

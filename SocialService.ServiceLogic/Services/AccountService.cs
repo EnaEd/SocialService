@@ -23,7 +23,7 @@ namespace SocialService.ServiceLogic.Services
         private IMapper _mapper;
         public AccountService(IHttpContextAccessor accessor, IConfiguration configuration, IMapper mapper)
         {
-            //_context = accessor.HttpContext;
+            _context = accessor.HttpContext;
             _configuration = configuration;
             _userRepository = new UserDapperRepository(_configuration);
             _mapper = mapper;
@@ -46,7 +46,8 @@ namespace SocialService.ServiceLogic.Services
             if (user.Email != null && user.Password != null)
             {
                 _userRepository.Create(user);
-                Authenticate(registerViewModel.Email);
+                /*Task.Run(async()=> {await*/
+                Authenticate(registerViewModel.Email);/* }).Wait();*/
                 return true;
             }
             return false;
@@ -57,13 +58,19 @@ namespace SocialService.ServiceLogic.Services
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
+             //   new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
+                new Claim(ClaimTypes.Name, userName),
             };
 
-            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            //ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            ClaimsIdentity id = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
             await _context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
 
+        public void OnLogout()
+        {
+            _context.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        }
     }
 }
