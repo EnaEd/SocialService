@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SocialService.DataAccess.Entities;
+using SocialService.DataAccess.Interface;
 using SocialService.ServiceLogic.Interfaces;
 using SocialService.ServiceLogic.ViewModels;
 
@@ -9,9 +11,11 @@ namespace SocialService.Web.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
-        public AccountController(IAccountService accountService)
+        private ITokenService _tokenService;
+        public AccountController(IAccountService accountService, ITokenService tokenService)
         {
             _accountService = accountService;
+            _tokenService = tokenService;
         }
         [HttpGet]
         public IActionResult Register()
@@ -26,7 +30,7 @@ namespace SocialService.Web.Controllers
             {
                 isRegistrationSuccess = await _accountService.OnReigstration(model);
             }
-            
+
             if (!isRegistrationSuccess)
             {
                 return View(model);
@@ -55,6 +59,17 @@ namespace SocialService.Web.Controllers
                 return View(model);
             }
             return RedirectToAction("APIView", "API");
+        }
+
+        [HttpPost]
+        public async Task Token()
+        {
+            string username = Request.Form["username"];
+            string password = Request.Form["password"];
+            string token = _tokenService.GetToken(username, password);
+
+            Response.ContentType = "application/json";
+            await Response.WriteAsync(token);
         }
 
         [HttpPost]
