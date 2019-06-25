@@ -22,6 +22,7 @@ namespace SocialService.Web.API
         }
 
         [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IEnumerable<FriendsViewModel> Get(string userId)
         {
             IEnumerable<FriendsViewModel> result = _service.GetAll(userId);

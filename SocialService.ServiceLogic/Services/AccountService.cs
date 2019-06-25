@@ -40,13 +40,13 @@ namespace SocialService.ServiceLogic.Services
             return false;
         }
 
-        public bool OnReigstration(RegisterViewModel registerViewModel)
+        public async Task<bool> OnReigstration(RegisterViewModel registerViewModel)
         {
             User user = new User { Email = registerViewModel.Email, Password = registerViewModel.Password };
             if (user.Email != null && user.Password != null)
             {
                 _userRepository.Create(user);
-                Authenticate(registerViewModel.Email);
+               await Authenticate(registerViewModel.Email);
                 return true;
             }
             return false;

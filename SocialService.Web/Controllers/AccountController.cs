@@ -19,12 +19,12 @@ namespace SocialService.Web.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
             bool isRegistrationSuccess = false;
             if (ModelState.IsValid)
             {
-                isRegistrationSuccess = _accountService.OnReigstration(model);
+                isRegistrationSuccess = await _accountService.OnReigstration(model);
             }
             
             if (!isRegistrationSuccess)
