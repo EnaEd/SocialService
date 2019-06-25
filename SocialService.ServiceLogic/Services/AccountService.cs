@@ -46,8 +46,7 @@ namespace SocialService.ServiceLogic.Services
             if (user.Email != null && user.Password != null)
             {
                 _userRepository.Create(user);
-                /*Task.Run(async()=> {await*/
-                Authenticate(registerViewModel.Email);/* }).Wait();*/
+                Authenticate(registerViewModel.Email);
                 return true;
             }
             return false;
@@ -58,11 +57,9 @@ namespace SocialService.ServiceLogic.Services
 
             var claims = new List<Claim>
             {
-             //   new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
                 new Claim(ClaimTypes.Name, userName),
             };
 
-            //ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
             ClaimsIdentity id = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
             await _context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
