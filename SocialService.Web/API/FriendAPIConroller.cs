@@ -22,7 +22,6 @@ namespace SocialService.Web.API
         }
 
         [HttpGet]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IEnumerable<FriendsViewModel> Get(string userId)
         {
             if (string.IsNullOrEmpty(userId))
