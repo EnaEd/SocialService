@@ -33,7 +33,8 @@ $(document).ready(function (e) {
 
                     elemen.innerHTML = "";
                     for (var i = 0; i < data.length; i++) {
-                        elemen.innerHTML += "<div>" + data[i].name + "</div>"
+                        elemen.innerHTML += "<br/><br/><div>" + data[i].name +" "+ "<input type=\"submit\" value=\"Delete\" id=\"deleteFriend\"/>" +" "+
+                            "<input type=\"submit\" value=\"Edit\" id=\"editFriend\"/>"+ "</div>"
                     }
 
                 },
