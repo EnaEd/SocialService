@@ -58,7 +58,7 @@ namespace SocialService.Web.Controllers
                 ModelState.AddModelError("", "Wrong login or password");
                 return View(model);
             }
-            return RedirectToAction("APIView", "API");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]

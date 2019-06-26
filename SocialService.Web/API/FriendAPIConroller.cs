@@ -22,9 +22,13 @@ namespace SocialService.Web.API
         }
 
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IEnumerable<FriendsViewModel> Get(string userId)
         {
+            if (string.IsNullOrEmpty(userId))
+            {
+                userId = User.Identity.Name;
+            }
             IEnumerable<FriendsViewModel> result = _service.GetAll(userId);
             return result;
         }
@@ -32,6 +36,7 @@ namespace SocialService.Web.API
         [HttpGet("{id}")]
         public FriendsViewModel Get(int id, string userId)
         {
+
             FriendsViewModel result = _service.Get(id, userId);
             if (result is null)
             {

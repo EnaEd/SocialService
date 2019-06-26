@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<SocialService.ServiceLogic.ViewModels.FriendsViewModel>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -19,3 +21,59 @@ else
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+<div>
+    <input type="submit" id="showFriends" value="Show Friends" />
+</div>
+
+<div id="list-friends"></div>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script>
+    var tokenKey = "accessToken";
+    var token;
+    var urll = "http://localhost:44396/api/friendapi";
+    var request=new XMLHttpRequest();
+    $(document).ready(function (e) {
+
+        var temp = '@User.Identity.Name';
+
+        var loginData = {
+            grant_type: 'password',
+            username: '@User.Identity.Name',
+            password: ''
+            };
+
+        $.ajax({
+            type: 'POST',
+            url: '/Account/Token',
+            data: loginData,
+            success: function (data){
+                $('.friendList').css('display', 'block');
+                $('.friendForm').css('display', 'none');
+                sessionStorage.setItem(tokenKey, data.access_token);
+                $.ajax({
+                      type: 'GET',
+                      url: 'api/FriendAPI',
+                      beforeSend: function (xhr) {
+                          token = sessionStorage.getItem(tokenKey);
+                          xhr.setRequestHeader("Authorization", "Bearer " + token);
+                    },
+                    success: function (data) {
+
+
+                        var elemen = document.getElementById("list-friends");
+
+                        elemen.innerHTML = "";
+                        for (var i = 0; i < data.length; i++) {
+                             elemen.innerHTML += "<div>"+data[i].name+"</div>"
+                        }
+                       
+                      },
+                      fail: function (data) {
+                          console.log(data);
+                      }
+                });
+            }
+        });
+
+    });
+</script>

@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 
 namespace SocialService.DataAccess.Service
 {
@@ -48,7 +47,7 @@ namespace SocialService.DataAccess.Service
 
         private ClaimsIdentity GetIdentity(string username, string password)
         {
-            User user = UserRepository.GetAll(null).FirstOrDefault(x => x.Email == username && x.Password == password);
+            User user = UserRepository.GetAll(null).FirstOrDefault(x => x.Email == username);
             if (user != null)
             {
                 var claims = new List<Claim>

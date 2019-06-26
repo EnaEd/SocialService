@@ -2,17 +2,16 @@
 
 <h2>Enter to application</h2>
 <a asp-action="Register" asp-controller="Account">Registration</a>
-<form method="post" asp-controller="Account" asp-action="Login"
-      >
+<form method="post" asp-controller="Account" asp-action="Login">
     <div asp-validation-summary="ModelOnly"></div>
     <div>
         <label asp-for="Email"></label><br />
-        <input asp-for="Email" />
+        <input asp-for="Email" id="Email"/>
         <span asp-validation-for="Email"></span>
     </div>
     <div>
         <label asp-for="Password"></label><br />
-        <input asp-for="Password" />
+        <input asp-for="Password" id="Password"/>
         <span asp-validation-for="Password"></span>
     </div>
     <div>
@@ -20,6 +19,6 @@
         <input asp-for="RememberMe" />
     </div>
     <div>
-        <input type="submit" value="Enter" />
+        <input type="submit" value="Enter" id="Enter"/>
     </div>
 </form>
