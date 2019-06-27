@@ -47,10 +47,11 @@ namespace SocialService.Web.API
         }
 
         // POST api/users
-        [HttpPost]
+        [HttpPost("CreateFriend")]
         public void Post([FromBody]FriendsViewModel friend)
         {
-            if (friend != null)
+            var friendItem = Request.Body.ReadByte();
+            if (friend != null&&friend.Name!=null)
             {
                 _service.Create(friend);
             }
@@ -77,7 +78,6 @@ namespace SocialService.Web.API
         [HttpPost("DeleteFriend/{id}")]
         public void Delete(int id, string userId)
         {
-            //int id = int.Parse(friendId);
             if (string.IsNullOrEmpty(userId))
             {
                 userId = User.Identity.Name;

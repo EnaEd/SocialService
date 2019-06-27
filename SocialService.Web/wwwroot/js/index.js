@@ -124,7 +124,49 @@ function EditFriendEvent(index) {
 
 }
 $('#createFriend').click(function () {
-    debugger;
+    $.ajax({
+        type: 'POST',
+        url: '/api/FriendAPI/CreateFriend',
+        beforeSend: function (xhr) {
+            token = sessionStorage.getItem(tokenKey);
+            xhr.setRequestHeader("Authorization", "Bearer " + token);
+        },
+        contentType: "application/json",
+        data: JSON.stringify({
+            name: $('#nameFriend').val,
+            email: $('#emailFriend').val,
+            phone: $('#phoneFriend').val,
+            userId: $('#userName').val,
+            id:0
+        }),
+        success: function (data) {
+            $.ajax({
+                type: 'GET',
+                url: 'api/FriendAPI',
+                beforeSend: function (xhr) {
+                    token = sessionStorage.getItem(tokenKey);
+                    xhr.setRequestHeader("Authorization", "Bearer " + token);
+                },
+                success: function (data) {
+
+
+                    var elemen = document.getElementById("list-friends");
+                    friends = data;
+                    elemen.innerHTML = "";
+                    for (var i = 0; i < data.length; i++) {
+                        elemen.innerHTML += "<br/><br/><div>" + data[i].name + " " + "<input type=\"button\" value=\"Delete\" id=\"deleteFriend\"onclick=\"DeleteFriendEvent(" + i + ")\"/>" + " " +
+                            "<input type=\"button\" value=\"Edit\" id=\"editFriend\" onclick=\"EditFriendEvent(" + i + ")\"/>" + "</div>"
+                    }
+                },
+                fail: function (data) {
+                    console.log(data);
+                }
+            });
+        },
+        fail: function (data) {
+            console.log(data);
+        }
+    });
 });
 
 

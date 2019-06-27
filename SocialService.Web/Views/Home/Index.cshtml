@@ -25,11 +25,12 @@ else
     <div class="bg-white">
         <input type="submit" id="showFriends" value="Show Friends" />
     </div>
-    <br/>
-    <div class="bg-white">
-        <input type="submit" id="createFriend" value="Create Friend" />
-    </div>
-    
+    <br />
+        <h2>Add Friend</h2>
+        <input type="text" name="name" id="nameFriend"/><br /><br />
+        <input type="text" name="email" id="emailFriend"/><br /><br />
+        <input type="text" name="phone" id="phoneFriend"/><br /><br />
+       <input type="submit" id="createFriend" value="Create Friend" /><br />
 </div>
 <input type="hidden" value="@User.Identity.Name" id="userName"/>
 
