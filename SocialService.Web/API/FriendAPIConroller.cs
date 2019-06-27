@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using SocialService.ServiceLogic.Services;
 using SocialService.ServiceLogic.ViewModels;
 using System.Collections.Generic;
@@ -12,11 +13,12 @@ using System.Linq;
 namespace SocialService.Web.API
 {
     [Route("api/[controller]")]
+    //[ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class FriendAPIController : Controller
     {
         private FriendAPIService _service;
-        public FriendAPIController(IConfiguration configuration,IMapper mapper)
+        public FriendAPIController(IConfiguration configuration, IMapper mapper)
         {
             _service = new FriendAPIService(configuration, mapper);
         }
@@ -55,24 +57,31 @@ namespace SocialService.Web.API
         }
 
 
-        [HttpPut]
+        [HttpPost("Put")]
+        [HttpPost("EditFriend")]
         public void Put([FromBody]FriendsViewModel friend)
         {
             if (friend is null)
             {
-                return ;
+                return;
             }
             if (!_service.GetAll(friend.UserId).Any(x => x.Id == friend.Id))
             {
-                return ;
+                return;
             }
             _service.Update(friend);
         }
 
         // DELETE api/users/5
-        [HttpDelete("{id}")]
+        [HttpPost("DeleteFriend")]
+        [HttpPost("DeleteFriend/{id}")]
         public void Delete(int id, string userId)
         {
+            //int id = int.Parse(friendId);
+            if (string.IsNullOrEmpty(userId))
+            {
+                userId = User.Identity.Name;
+            }
             FriendsViewModel friend = _service.GetAll(userId).FirstOrDefault(x => x.Id == id);
             if (friend != null)
             {
