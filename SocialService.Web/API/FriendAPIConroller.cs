@@ -50,7 +50,6 @@ namespace SocialService.Web.API
         [HttpPost("CreateFriend")]
         public void Post([FromBody]FriendsViewModel friend)
         {
-            var friendItem = Request.Body.ReadByte();
             if (friend != null&&friend.Name!=null)
             {
                 _service.Create(friend);

@@ -49,6 +49,7 @@ $(document).ready(function (e) {
 
 function DeleteFriendEvent(index) {
     let user = friends[index];
+    debugger;
     $.ajax({
         type: 'POST',
         url: '/api/FriendAPI/DeleteFriend/' + user.id,
@@ -133,11 +134,10 @@ $('#createFriend').click(function () {
         },
         contentType: "application/json",
         data: JSON.stringify({
-            name: $('#nameFriend').val,
-            email: $('#emailFriend').val,
-            phone: $('#phoneFriend').val,
-            userId: $('#userName').val,
-            id:0
+            name:  $('#nameFriend').val(),
+            email: $('#emailFriend').val(),
+            phone: $('#phoneFriend').val(),
+            userId: $('#userName').val(),
         }),
         success: function (data) {
             $.ajax({
