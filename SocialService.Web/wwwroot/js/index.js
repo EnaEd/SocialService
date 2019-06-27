@@ -1,12 +1,10 @@
-﻿
-//<script>
-var tokenKey = "accessToken";
+﻿var tokenKey = "accessToken";
 var token;
 var urll = "http://localhost:44396/api/friendapi";
 var request = new XMLHttpRequest();
 var friends;
 $(document).ready(function (e) {
-
+    $('.modal').hide();
     var loginData = {
         grant_type: 'password',
         username: $('#userName').val(),
@@ -90,38 +88,12 @@ function DeleteFriendEvent(index) {
 };
 function EditFriendEvent(index) {
     let user = friends[index];
-    debugger;
-    $.ajax({
-        type: 'POST',
-        url: '/api/FriendApi/EditFriend',
-        beforeSend: function (xhr) {
-            token = sessionStorage.getItem(tokenKey);
-            xhr.setRequestHeader("Authorization", "Bearer " + token);
-        },
-        contentType: "application/json",
-        data: JSON.stringify({
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            phone: user.phone,
-            userId: user.userId
-        }),
-        success: function (data) {
-
-           
-            var elemen = document.getElementById("list-friends");
-
-            elemen.innerHTML = "";
-            for (var i = 0; i < data.length; i++) {
-                elemen.innerHTML += "<br/><br/><div>" + data[i].name + " " + "<input type=\"button\" value=\"Delete\" id=\"deleteFriend\"onclick=\"DeleteFriendEvent(" + i + ")\"/>" + " " +
-                    "<input type=\"button\" value=\"Edit\" id=\"editFriend\" onclick=\"EditFriendEvent(" + i + ")\"/>" + "</div>"
-            }
-
-        },
-        fail: function (data) {
-            console.log(data);
-        }
-    });
+    $('.modal').css("display", "block");
+    $('#nameEdit').val(user.name);
+    $('#emailEdit').val(user.email);
+    $('#phoneEdit').val(user.phone);
+    $('#idEdit').val(user.id);
+    
 
 
 }
@@ -169,7 +141,30 @@ $('#createFriend').click(function () {
         }
     });
 });
-
-
-
-//</script>
+function EditFriend() {
+    $.ajax({
+        type: 'POST',
+        url: '/api/FriendApi/EditFriend',
+        beforeSend: function (xhr) {
+            token = sessionStorage.getItem(tokenKey);
+            xhr.setRequestHeader("Authorization", "Bearer " + token);
+        },
+        contentType: "application/json",
+        data: JSON.stringify({
+            id:    $('#idEdit').val(),
+            name:  $('#nameEdit').val(),
+            email: $('#emailEdit').val(),
+            phone: $('#phoneEdit').val(),
+            userId: $('#userName').val()
+        }),
+        success: function (data) {
+            location.reload();
+        },
+        fail: function (data) {
+            console.log(data);
+        }
+    });
+};
+function Close() {
+    $('.modal').hide();
+};
