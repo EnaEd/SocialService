@@ -57,7 +57,6 @@ namespace SocialService.Web.API
         }
 
 
-        [HttpPost("Put")]
         [HttpPost("EditFriend")]
         public void Put([FromBody]FriendsViewModel friend)
         {

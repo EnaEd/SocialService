@@ -93,11 +93,12 @@ function EditFriendEvent(index) {
     debugger;
     $.ajax({
         type: 'POST',
-        url: '/api/FriendApi/Put',
+        url: '/api/FriendApi/EditFriend',
         beforeSend: function (xhr) {
             token = sessionStorage.getItem(tokenKey);
             xhr.setRequestHeader("Authorization", "Bearer " + token);
         },
+        contentType: "application/json",
         data: JSON.stringify({
             id: user.id,
             name: user.name,
@@ -107,7 +108,7 @@ function EditFriendEvent(index) {
         }),
         success: function (data) {
 
-            debugger;
+           
             var elemen = document.getElementById("list-friends");
 
             elemen.innerHTML = "";
