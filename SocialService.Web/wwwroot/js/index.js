@@ -123,6 +123,10 @@ function EditFriendEvent(index) {
 
 
 }
+$('#createFriend').click(function () {
+    debugger;
+});
+
 
 
 //</script>
