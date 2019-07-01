@@ -9,6 +9,7 @@ namespace SocialService.DataAccess.EF
     {
         private IConfiguration _configuration;
         public DbSet<Friend> Friends { get; set; }
+        public DbSet<FriendsOfFriends> FriendsOfFriends { get; set; }
         public ApplicationContext(IConfiguration configuration)
         {
             _configuration = configuration;

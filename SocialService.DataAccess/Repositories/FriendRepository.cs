@@ -1,8 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using SocialService.DataAccess.Entities;
-using SocialService.DataAccess.Interface;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SocialService.DataAccess.Repositories
 {
