@@ -5,6 +5,7 @@ using SocialService.DataAccess.Interface;
 using SocialService.DataAccess.Repositories;
 using SocialService.ServiceLogic.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SocialService.ServiceLogic.Services
 {
@@ -12,6 +13,7 @@ namespace SocialService.ServiceLogic.Services
     {
         private IRepository<Friend> _friendRepository;
         private IDapperRepository<Friend> _friendDapperRepository;
+        private List<Friend> _friends;
 
         public FriendService(IConfiguration configuration,IMapper mapper) : base(mapper)
         {
@@ -20,7 +22,8 @@ namespace SocialService.ServiceLogic.Services
         }
         public void Delete(int id, string userId)
         {
-            _friendRepository.Delete(id, userId);
+            Friend friend = _friendRepository.GetAll().FirstOrDefault(x=>x.Id==id && x.UserId==userId);
+            _friendRepository.Delete(friend);
         }
 
         public IEnumerable<FriendsView> GetAll(string userId)
@@ -28,13 +31,6 @@ namespace SocialService.ServiceLogic.Services
             //Use Dapper instead of EF
             IEnumerable<FriendsView> result = _mapper.Map<IEnumerable<FriendsView>>(_friendDapperRepository.GetAll(userId));
             return result;
-        }
-
-        public FriendsView Get(int id, string userId)
-        {
-
-            FriendsView friend = _mapper.Map<FriendsView>(_friendRepository.Get(id, userId));
-            return friend;
         }
 
         public void Create(FriendsView item)

@@ -31,18 +31,6 @@ namespace SocialService.Web.API
             return result;
         }
 
-        [HttpGet("{id}")]
-        public FriendsView Get(int id, string userId)
-        {
-
-            FriendsView result = _service.Get(id, userId);
-            if (result is null)
-            {
-                return null;
-            }
-            return result;
-        }
-
         [HttpPost("CreateFriend")]
         public void Post([FromBody]FriendsView friend)
         {

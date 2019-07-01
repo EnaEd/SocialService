@@ -1,10 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SocialService.DataAccess.EF;
+using SocialService.DataAccess.Interface;
 
 namespace SocialService.DataAccess.Repositories
 {
-    public class BaseRepository<T> where T : class
+    public class BaseRepository<T> : IRepository<T> where T : class
     {
         protected ApplicationContext _context;
         protected DbSet<T> _dbSet;
@@ -15,6 +18,29 @@ namespace SocialService.DataAccess.Repositories
         {
             _context = new ApplicationContext(configuration);
             _dbSet = _context.Set<T>();
+        }
+
+        public virtual void Create(T item)
+        {
+            _dbSet.Add(item);
+            _context.SaveChanges();
+        }
+
+        public virtual void Delete(T item)
+        {
+            _dbSet.Remove(item);
+            _context.SaveChanges();
+        }
+
+        public virtual IEnumerable<T> GetAll()
+        {
+            return _dbSet.ToList();
+        }
+
+        public virtual void Update(T item)
+        {
+            _dbSet.Update(item);
+            _context.SaveChanges();
         }
     }
 }
