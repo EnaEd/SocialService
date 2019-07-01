@@ -25,6 +25,7 @@
     <Compile Remove="Entities\ClientProfile.cs" />
     <Compile Remove="Repositories\ClientManager.cs" />
     <Compile Remove="Repositories\IdentityUnitOfWork.cs" />
+    <Compile Remove="Repositories\UserDapperRepository.cs" />
   </ItemGroup>
 
   <ItemGroup>

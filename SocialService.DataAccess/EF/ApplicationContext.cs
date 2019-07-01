@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SocialService.DataAccess.Entities;
 
-using System;
-
 namespace SocialService.DataAccess.EF
 {
     public class ApplicationContext : IdentityDbContext<User>

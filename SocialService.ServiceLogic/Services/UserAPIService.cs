@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using SocialService.DataAccess.Entities;
 using SocialService.DataAccess.Interface;
-using SocialService.DataAccess.Repositories;
 using SocialService.ServiceLogic.ViewModels;
 using System.Collections.Generic;
 

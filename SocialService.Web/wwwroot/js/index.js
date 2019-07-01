@@ -46,8 +46,8 @@ $(document).ready(function (e) {
 });
 
 function DeleteFriendEvent(index) {
-    let user = friends[index];
     debugger;
+    let user = friends[index];
     $.ajax({
         type: 'POST',
         url: '/api/FriendAPI/DeleteFriend/' + user.id,
@@ -66,8 +66,6 @@ function DeleteFriendEvent(index) {
                     xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },
                 success: function (data) {
-
-
                     var elemen = document.getElementById("list-friends");
                     friends = data;
                     elemen.innerHTML = "";
@@ -93,7 +91,7 @@ function EditFriendEvent(index) {
     $('#emailEdit').val(user.email);
     $('#phoneEdit').val(user.phone);
     $('#idEdit').val(user.id);
-    
+
 
 
 }
@@ -107,7 +105,7 @@ $('#createFriend').click(function () {
         },
         contentType: "application/json",
         data: JSON.stringify({
-            name:  $('#nameFriend').val(),
+            name: $('#nameFriend').val(),
             email: $('#emailFriend').val(),
             phone: $('#phoneFriend').val(),
             userId: $('#userName').val(),
@@ -151,8 +149,8 @@ function EditFriend() {
         },
         contentType: "application/json",
         data: JSON.stringify({
-            id:    $('#idEdit').val(),
-            name:  $('#nameEdit').val(),
+            id: $('#idEdit').val(),
+            name: $('#nameEdit').val(),
             email: $('#emailEdit').val(),
             phone: $('#phoneEdit').val(),
             userId: $('#userName').val()

@@ -3,17 +3,14 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 using SocialService.ServiceLogic.Services;
 using SocialService.ServiceLogic.ViewModels;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 
 namespace SocialService.Web.API
 {
     [Route("api/[controller]")]
-    //[ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class FriendAPIController : Controller
     {
@@ -46,11 +43,10 @@ namespace SocialService.Web.API
             return result;
         }
 
-        // POST api/users
         [HttpPost("CreateFriend")]
         public void Post([FromBody]FriendsViewModel friend)
         {
-            if (friend != null&&friend.Name!=null)
+            if (friend != null && friend.Name != null)
             {
                 _service.Create(friend);
             }
@@ -71,8 +67,7 @@ namespace SocialService.Web.API
             _service.Update(friend);
         }
 
-        // DELETE api/users/5
-        [HttpPost("DeleteFriend")]
+        //[HttpPost("DeleteFriend")]
         [HttpPost("DeleteFriend/{id}")]
         public void Delete(int id, string userId)
         {

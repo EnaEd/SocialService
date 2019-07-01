@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using SocialService.DataAccess.Entities;
 using SocialService.ServiceLogic.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;

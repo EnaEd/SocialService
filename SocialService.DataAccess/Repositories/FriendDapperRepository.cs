@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using SocialService.DataAccess.Entities;
 using SocialService.DataAccess.Interface;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;

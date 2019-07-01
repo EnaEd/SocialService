@@ -1,7 +1,5 @@
 ﻿using System.Diagnostics;
 using AutoMapper;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -13,22 +11,16 @@ namespace SocialService.Web.Controllers
     public class HomeController : Controller
     {
         private FriendAPIController _friends;
-        public HomeController(IMapper mapper,IConfiguration configuration)
+        public HomeController(IMapper mapper, IConfiguration configuration)
         {
-            _friends = new FriendAPIController(configuration,mapper);
+            _friends = new FriendAPIController(configuration, mapper);
         }
-        //[Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
+        [Authorize]
         public IActionResult Index()
         {
             return View();
         }
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public IActionResult Friends()
-        {
-            string userId = User.Identity.Name;
-            return View(_friends.Get(userId));
-        }
-
+        [Authorize]
         public IActionResult Privacy()
         {
             return View();

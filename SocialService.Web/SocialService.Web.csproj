@@ -9,18 +9,24 @@
     <Compile Remove="EF\**" />
     <Compile Remove="Repositories\**" />
     <Compile Remove="ViewModel\**" />
+    <Compile Remove="Views\Friend\**" />
     <Content Remove="EF\**" />
     <Content Remove="Repositories\**" />
     <Content Remove="ViewModel\**" />
+    <Content Remove="Views\Friend\**" />
     <EmbeddedResource Remove="EF\**" />
     <EmbeddedResource Remove="Repositories\**" />
     <EmbeddedResource Remove="ViewModel\**" />
+    <EmbeddedResource Remove="Views\Friend\**" />
     <None Remove="EF\**" />
     <None Remove="Repositories\**" />
     <None Remove="ViewModel\**" />
+    <None Remove="Views\Friend\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="API\UserAPIConroller.cs" />
+    <Compile Remove="Controllers\APIController.cs" />
     <Compile Remove="Views\Account.cs" />
   </ItemGroup>
 

@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SocialService.DataAccess.Entities;
 using SocialService.DataAccess.Interface;
 using SocialService.ServiceLogic.Interfaces;
 using SocialService.ServiceLogic.ViewModels;
@@ -42,7 +41,7 @@ namespace SocialService.Web.Controllers
                 }
                 return View(model);
             }
-            return RedirectToAction("APIView", "API");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -83,7 +82,7 @@ namespace SocialService.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOff()
         {
-            _accountService.OnLogout();
+           await _accountService.OnLogout();
             return RedirectToAction("Index", "Home");
         }
     }

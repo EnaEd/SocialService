@@ -1,32 +1,19 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
-using SocialService.ServiceLogic.Interfaces;
+﻿using SocialService.ServiceLogic.Interfaces;
 using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using SocialService.DataAccess.Entities;
-using SocialService.DataAccess.Interface;
-using SocialService.DataAccess.Repositories;
-using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Http;
 using SocialService.ServiceLogic.ViewModels;
-using System.Linq;
-using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 
 namespace SocialService.ServiceLogic.Services
 {
     public class AccountService : IAccountService
     {
-        private IConfiguration _configuration;
-        private IMapper _mapper;
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
 
-        public AccountService(IConfiguration configuration, IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountService(UserManager<User> userManager, SignInManager<User> signInManager)
         {
-            _configuration = configuration;
-            _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
         }
@@ -55,6 +42,7 @@ namespace SocialService.ServiceLogic.Services
                 }
                 return false;
             }
+
             await _signInManager.SignInAsync(user, false);
             return true;
         }
