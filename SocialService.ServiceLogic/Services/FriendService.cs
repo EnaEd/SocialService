@@ -8,12 +8,12 @@ using System.Collections.Generic;
 
 namespace SocialService.ServiceLogic.Services
 {
-    public class FriendAPIService : BaseAPIService
+    public class FriendService : BaseService
     {
         private IRepository<Friend> _friendRepository;
         private IDapperRepository<Friend> _friendDapperRepository;
 
-        public FriendAPIService(IConfiguration configuration,IMapper mapper) : base(mapper)
+        public FriendService(IConfiguration configuration,IMapper mapper) : base(mapper)
         {
             _friendRepository = new FriendRepository(configuration);
             _friendDapperRepository = new FriendDapperRepository(configuration);
@@ -23,27 +23,27 @@ namespace SocialService.ServiceLogic.Services
             _friendRepository.Delete(id, userId);
         }
 
-        public IEnumerable<FriendsViewModel> GetAll(string userId)
+        public IEnumerable<FriendsView> GetAll(string userId)
         {
             //Use Dapper instead of EF
-            IEnumerable<FriendsViewModel> result = _mapper.Map<IEnumerable<FriendsViewModel>>(_friendDapperRepository.GetAll(userId));
+            IEnumerable<FriendsView> result = _mapper.Map<IEnumerable<FriendsView>>(_friendDapperRepository.GetAll(userId));
             return result;
         }
 
-        public FriendsViewModel Get(int id, string userId)
+        public FriendsView Get(int id, string userId)
         {
 
-            FriendsViewModel friend = _mapper.Map<FriendsViewModel>(_friendRepository.Get(id, userId));
+            FriendsView friend = _mapper.Map<FriendsView>(_friendRepository.Get(id, userId));
             return friend;
         }
 
-        public void Create(FriendsViewModel item)
+        public void Create(FriendsView item)
         {
             Friend friend = _mapper.Map<Friend>(item);
             _friendRepository.Create(friend);
         }
 
-        public void Update(FriendsViewModel item)
+        public void Update(FriendsView item)
         {
             Friend friend = _mapper.Map<Friend>(item);
             _friendRepository.Update(friend);

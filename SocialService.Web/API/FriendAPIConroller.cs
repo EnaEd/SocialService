@@ -14,28 +14,28 @@ namespace SocialService.Web.API
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class FriendAPIController : Controller
     {
-        private FriendAPIService _service;
+        private FriendService _service;
         public FriendAPIController(IConfiguration configuration, IMapper mapper)
         {
-            _service = new FriendAPIService(configuration, mapper);
+            _service = new FriendService(configuration, mapper);
         }
 
         [HttpGet]
-        public IEnumerable<FriendsViewModel> Get(string userId)
+        public IEnumerable<FriendsView> Get(string userId)
         {
             if (string.IsNullOrEmpty(userId))
             {
                 userId = User.Identity.Name;
             }
-            IEnumerable<FriendsViewModel> result = _service.GetAll(userId);
+            IEnumerable<FriendsView> result = _service.GetAll(userId);
             return result;
         }
 
         [HttpGet("{id}")]
-        public FriendsViewModel Get(int id, string userId)
+        public FriendsView Get(int id, string userId)
         {
 
-            FriendsViewModel result = _service.Get(id, userId);
+            FriendsView result = _service.Get(id, userId);
             if (result is null)
             {
                 return null;
@@ -44,7 +44,7 @@ namespace SocialService.Web.API
         }
 
         [HttpPost("CreateFriend")]
-        public void Post([FromBody]FriendsViewModel friend)
+        public void Post([FromBody]FriendsView friend)
         {
             if (friend != null && friend.Name != null)
             {
@@ -54,7 +54,7 @@ namespace SocialService.Web.API
 
 
         [HttpPost("EditFriend")]
-        public void Put([FromBody]FriendsViewModel friend)
+        public void Put([FromBody]FriendsView friend)
         {
             if (friend is null)
             {
@@ -75,7 +75,7 @@ namespace SocialService.Web.API
             {
                 userId = User.Identity.Name;
             }
-            FriendsViewModel friend = _service.GetAll(userId).FirstOrDefault(x => x.Id == id);
+            FriendsView friend = _service.GetAll(userId).FirstOrDefault(x => x.Id == id);
             if (friend != null)
             {
                 _service.Delete(id, userId);

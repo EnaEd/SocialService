@@ -1,7 +1,7 @@
 ﻿namespace SocialService.ServiceLogic.ViewModels
 
 {
-    public class FriendsViewModel
+    public class FriendsView
     {
         public int Id { get; set; }
         public string Name { get; set; }

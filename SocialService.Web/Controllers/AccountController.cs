@@ -24,7 +24,7 @@ namespace SocialService.Web.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterView model)
         {
             bool isRegistrationSuccess = false;
             List<IdentityError> errors = new List<IdentityError>();
@@ -52,7 +52,7 @@ namespace SocialService.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginView model)
         {
             bool isLogin = false;
             if (ModelState.IsValid)

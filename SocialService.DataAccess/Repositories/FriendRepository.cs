@@ -21,7 +21,7 @@ namespace SocialService.DataAccess.Repositories
         Friend IRepository<Friend>.Get(int id, string userId)
         {
             Friend friend = _dbSet.FirstOrDefault(x => x.Id == id && x.UserId == userId);
-            return _dbSet.Find(id);
+            return friend;
         }
 
         public void Create(Friend item)

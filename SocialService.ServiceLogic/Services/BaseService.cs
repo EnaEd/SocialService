@@ -2,10 +2,10 @@
 
 namespace SocialService.ServiceLogic.Services
 {
-    public class BaseAPIService
+    public class BaseService
     {
         protected readonly IMapper _mapper;
-        public BaseAPIService(IMapper mapper)
+        public BaseService(IMapper mapper)
         {
             _mapper = mapper;
         }

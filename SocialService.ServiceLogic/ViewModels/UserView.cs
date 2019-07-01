@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SocialService.ServiceLogic.ViewModels
 {
-    public class UserViewModel
+    public class UserView
     {
         public string Id { get; set; }
         public string Email { get; set; }

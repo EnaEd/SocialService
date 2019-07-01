@@ -8,8 +8,8 @@ namespace SocialService.ServiceLogic.MappingProfiles
     {
         public UserMappingProfile() : base()
         {
-            CreateMap<User, UserViewModel>();
-            CreateMap<UserViewModel, User>();
+            CreateMap<User, UserView>();
+            CreateMap<UserView, User>();
         }
     }
 }

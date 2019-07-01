@@ -2,7 +2,7 @@
 
 namespace SocialService.ServiceLogic.ViewModels
 {
-    public class LoginViewModel
+    public class LoginView
     {
         [Required]
         [Display(Name = "Email")]

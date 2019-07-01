@@ -46,7 +46,6 @@ $(document).ready(function (e) {
 });
 
 function DeleteFriendEvent(index) {
-    debugger;
     let user = friends[index];
     $.ajax({
         type: 'POST',

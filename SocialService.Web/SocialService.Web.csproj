@@ -30,6 +30,10 @@
     <Compile Remove="Views\Account.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="Views\API\APIView.cshtml" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />

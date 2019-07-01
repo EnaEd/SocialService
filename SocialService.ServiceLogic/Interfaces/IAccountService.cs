@@ -7,8 +7,8 @@ namespace SocialService.ServiceLogic.Interfaces
 {
     public interface IAccountService
     {
-        Task<bool> OnLogin(LoginViewModel loginViewModel);
-        Task<bool> OnReigstration(RegisterViewModel registerViewModel, List<IdentityError> errors);
+        Task<bool> OnLogin(LoginView loginViewModel);
+        Task<bool> OnReigstration(RegisterView registerViewModel, List<IdentityError> errors);
         Task OnLogout();
     }
 }

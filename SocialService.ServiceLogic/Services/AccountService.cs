@@ -18,7 +18,7 @@ namespace SocialService.ServiceLogic.Services
             _signInManager = signInManager;
         }
 
-        public async Task<bool> OnLogin(LoginViewModel loginViewModel)
+        public async Task<bool> OnLogin(LoginView loginViewModel)
         {
             SignInResult result =
             await _signInManager.PasswordSignInAsync(loginViewModel.Email, loginViewModel.Password, loginViewModel.RememberMe, false);
@@ -30,7 +30,7 @@ namespace SocialService.ServiceLogic.Services
             return true;
         }
 
-        public async Task<bool> OnReigstration(RegisterViewModel registerViewModel, List<IdentityError> errors)
+        public async Task<bool> OnReigstration(RegisterView registerViewModel, List<IdentityError> errors)
         {
             User user = new User { Email = registerViewModel.Email, UserName = registerViewModel.Email };
             var result = await _userManager.CreateAsync(user, registerViewModel.Password);
