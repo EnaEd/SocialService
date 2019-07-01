@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using SocialService.DataAccess.Auth;
 using SocialService.DataAccess.Entities;
 using SocialService.DataAccess.Interface;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SocialService.DataAccess.Service
@@ -15,9 +16,11 @@ namespace SocialService.DataAccess.Service
     public class TokenService : ITokenService
     {
         private UserManager<User> _userManager;
-        public TokenService(UserManager<User> manager)
+        private IConfiguration _configuration;
+        public TokenService(UserManager<User> manager, IConfiguration configuration)
         {
             _userManager = manager;
+            _configuration = configuration;
         }
         public async Task<string> GetToken(string username, string userPassword)
         {
@@ -29,12 +32,12 @@ namespace SocialService.DataAccess.Service
 
             var now = DateTime.UtcNow;
             var jwt = new JwtSecurityToken(
-                    issuer: AuthOptions.ISSUER,
-                    audience: AuthOptions.AUDIENCE,
+                    issuer: _configuration["AuthOption:Issuer"],
+                    audience: _configuration["AuthOption:Audience"],
                     notBefore: now,
                     claims: identity.Claims,
-                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+                    expires: now.Add(TimeSpan.FromMinutes(double.Parse(_configuration["AuthOption:LifeTime"]))),
+                    signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["AuthOption:Key"])), SecurityAlgorithms.HmacSha256));
             string encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
             var response = new

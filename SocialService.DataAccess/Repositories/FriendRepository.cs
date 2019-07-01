@@ -10,7 +10,6 @@ namespace SocialService.DataAccess.Repositories
     {
         public FriendRepository(IConfiguration configuration) : base(configuration)
         {
-
         }
     }
 }
