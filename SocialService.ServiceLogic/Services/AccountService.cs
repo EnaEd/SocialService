@@ -12,62 +12,48 @@ using Microsoft.AspNetCore.Http;
 using SocialService.ServiceLogic.ViewModels;
 using System.Linq;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 
 namespace SocialService.ServiceLogic.Services
 {
     public class AccountService : IAccountService
     {
-        private HttpContext _context;
         private IConfiguration _configuration;
-        private IDapperRepository<User> _userRepository;
         private IMapper _mapper;
-        public AccountService(IHttpContextAccessor accessor, IConfiguration configuration, IMapper mapper)
+        private UserManager<User> _userManager;
+        private SignInManager<User> _signInManager;
+
+        public AccountService(IConfiguration configuration, IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager)
         {
-            _context = accessor.HttpContext;
             _configuration = configuration;
-            _userRepository = new UserDapperRepository(_configuration);
             _mapper = mapper;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public async Task<bool> OnLogin(LoginViewModel loginViewModel)
         {
-            User user = _userRepository.GetAll(null).FirstOrDefault(u => u.Email == loginViewModel.Email && u.Password == loginViewModel.Password);
-            if (user != null)
-            {
-                await Authenticate(loginViewModel.Email);
-                return true;
-            }
             return false;
         }
 
-        public async Task<bool> OnReigstration(RegisterViewModel registerViewModel)
+        public async Task<bool> OnReigstration(RegisterViewModel registerViewModel, List<IdentityError> errors)
         {
-            User user = new User { Email = registerViewModel.Email, Password = registerViewModel.Password };
-            if (user.Email != null && user.Password != null)
+            User user = new User { Email = registerViewModel.Email, UserName = registerViewModel.Email };
+            var result = await _userManager.CreateAsync(user, registerViewModel.Password);
+            if (!result.Succeeded)
             {
-                _userRepository.Create(user);
-               await Authenticate(registerViewModel.Email);
-                return true;
+                foreach (var item in result.Errors)
+                {
+                    errors.Add(item);
+                }
+                return false;
             }
-            return false;
-        }
-
-        private async Task Authenticate(string userName)
-        {
-
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, userName),
-            };
-
-            ClaimsIdentity id = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-            await _context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+            await _signInManager.SignInAsync(user, false);
+            return true;
         }
 
         public void OnLogout()
         {
-            _context.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
     }
 }

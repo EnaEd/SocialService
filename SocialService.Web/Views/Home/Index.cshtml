@@ -11,32 +11,33 @@
     <form method="post" asp-controller="Account" asp-action="LogOff">
         <input type="submit" value="Logout" />
     </form>
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    </div>
+    <div>
+        <div class="bg-white">
+            <input type="submit" id="showFriends" value="Show Friends" />
+        </div>
+        <br />
+        <h2>Add Friend</h2>
+
+        <input type="text" name="name" id="nameFriend" /><br /><br />
+        <input type="text" name="email" id="emailFriend" /><br /><br />
+        <input type="text" name="phone" id="phoneFriend" /><br /><br />
+        <input type="submit" id="createFriend" value="Create Friend" /><br />
+    </div>
+
+    <input type="hidden" value="@User.Identity.Name" id="userName" />
+
+    <div id="list-friends"></div>
 }
 else
 {
     <a asp-controller="Account" asp-action="Login">Login</a>
     <a asp-controller="Account" asp-action="Register">Register</a>
 }
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-<div>
-    <div class="bg-white">
-        <input type="submit" id="showFriends" value="Show Friends" />
-    </div>
-    <br />
-    <h2>Add Friend</h2>
-    
-    <input type="text" name="name" id="nameFriend" /><br /><br />
-    <input type="text" name="email" id="emailFriend" /><br /><br />
-    <input type="text" name="phone" id="phoneFriend" /><br /><br />
-    <input type="submit" id="createFriend" value="Create Friend" /><br />
-</div>
 
-<input type="hidden" value="@User.Identity.Name" id="userName"/>
-
-<div id="list-friends"></div>
 <div id="myModal" class="modal" style="display:none;position:center">
 
     <div class="modal-content" style="width:200px">
@@ -49,7 +50,7 @@ else
         <input type="text" name="email" id="emailEdit" /><br />
         <label>Phone</label><br />
         <input type="text" name="phone" id="phoneEdit" /><br />
-        <input type="button" id="submitEdit" value="Edit" onclick="EditFriend()"/><br />
+        <input type="button" id="submitEdit" value="Edit" onclick="EditFriend()" /><br />
     </div>
 
 </div>

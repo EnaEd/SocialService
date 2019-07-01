@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SocialService.DataAccess.Entities;
 using SocialService.DataAccess.Interface;
@@ -26,13 +28,18 @@ namespace SocialService.Web.Controllers
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             bool isRegistrationSuccess = false;
+            List<IdentityError> errors = new List<IdentityError>();
             if (ModelState.IsValid)
             {
-                isRegistrationSuccess = await _accountService.OnReigstration(model);
+                isRegistrationSuccess = await _accountService.OnReigstration(model, errors);
             }
 
             if (!isRegistrationSuccess)
             {
+                foreach (var item in errors)
+                {
+                    ModelState.AddModelError(string.Empty, item.Description);
+                }
                 return View(model);
             }
             return RedirectToAction("APIView", "API");
