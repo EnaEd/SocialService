@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using SocialService.DataAccess.Auth;
 using SocialService.DataAccess.Entities;
@@ -8,19 +9,20 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace SocialService.DataAccess.Service
 {
     public class TokenService : ITokenService
     {
-        public IDapperRepository<User> UserRepository { get; set; }
-        public TokenService(IDapperRepository<User> repository)
+        private UserManager<User> _userManager;
+        public TokenService(UserManager<User> manager)
         {
-            UserRepository = repository;
+            _userManager = manager;
         }
-        public string GetToken(string username, string userPassword)
+        public async Task<string> GetToken(string username, string userPassword)
         {
-            ClaimsIdentity identity = GetIdentity(username, userPassword);
+            ClaimsIdentity identity = await GetIdentity(username, userPassword);
             if (identity is null)
             {
                 return string.Empty;
@@ -45,9 +47,9 @@ namespace SocialService.DataAccess.Service
             return token;
         }
 
-        private ClaimsIdentity GetIdentity(string username, string password)
+        private async Task<ClaimsIdentity> GetIdentity(string username, string password)
         {
-            User user = UserRepository.GetAll(null).FirstOrDefault(x => x.Email == username);
+            User user = await _userManager.FindByEmailAsync(username);
             if (user != null)
             {
                 var claims = new List<Claim>

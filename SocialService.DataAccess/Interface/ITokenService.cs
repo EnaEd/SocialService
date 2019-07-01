@@ -1,7 +1,9 @@
-﻿namespace SocialService.DataAccess.Interface
+﻿using System.Threading.Tasks;
+
+namespace SocialService.DataAccess.Interface
 {
     public interface ITokenService
     {
-        string GetToken(string username, string userPassword);
+        Task<string> GetToken(string username, string userPassword);
     }
 }

@@ -10,6 +10,6 @@ namespace SocialService.ServiceLogic.Interfaces
     {
         Task<bool> OnLogin(LoginViewModel loginViewModel);
         Task<bool> OnReigstration(RegisterViewModel registerViewModel, List<IdentityError> errors);
-        void OnLogout();
+        Task OnLogout();
     }
 }

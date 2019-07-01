@@ -17,7 +17,7 @@ namespace SocialService.Web.Controllers
         {
             _friends = new FriendAPIController(configuration,mapper);
         }
-        [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
+        //[Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
         public IActionResult Index()
         {
             return View();

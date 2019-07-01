@@ -33,7 +33,14 @@ namespace SocialService.ServiceLogic.Services
 
         public async Task<bool> OnLogin(LoginViewModel loginViewModel)
         {
-            return false;
+            SignInResult result =
+            await _signInManager.PasswordSignInAsync(loginViewModel.Email, loginViewModel.Password, loginViewModel.RememberMe, false);
+            if (!result.Succeeded)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public async Task<bool> OnReigstration(RegisterViewModel registerViewModel, List<IdentityError> errors)
@@ -52,8 +59,9 @@ namespace SocialService.ServiceLogic.Services
             return true;
         }
 
-        public void OnLogout()
+        public async Task OnLogout()
         {
+            await _signInManager.SignOutAsync();
         }
     }
 }

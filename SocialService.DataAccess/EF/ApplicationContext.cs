@@ -7,7 +7,7 @@ using System;
 
 namespace SocialService.DataAccess.EF
 {
-    public class ApplicationContext : DbContext
+    public class ApplicationContext : IdentityDbContext<User>
     {
         private IConfiguration _configuration;
         public DbSet<Friend> Friends { get; set; }

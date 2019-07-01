@@ -73,7 +73,7 @@ namespace SocialService.Web.Controllers
         {
             string username = Request.Form["username"];
             string password = Request.Form["password"];
-            string token = _tokenService.GetToken(username, password);
+            string token = await _tokenService.GetToken(username, password);
 
             Response.ContentType = "application/json";
             await Response.WriteAsync(token);
