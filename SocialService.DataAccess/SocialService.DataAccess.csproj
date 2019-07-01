@@ -5,14 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Auth\**" />
     <Compile Remove="EntityFramework\**" />
     <Compile Remove="Identity\**" />
     <Compile Remove="Interfaces\**" />
     <Compile Remove="Models\**" />
+    <EmbeddedResource Remove="Auth\**" />
     <EmbeddedResource Remove="EntityFramework\**" />
     <EmbeddedResource Remove="Identity\**" />
     <EmbeddedResource Remove="Interfaces\**" />
     <EmbeddedResource Remove="Models\**" />
+    <None Remove="Auth\**" />
     <None Remove="EntityFramework\**" />
     <None Remove="Identity\**" />
     <None Remove="Interfaces\**" />

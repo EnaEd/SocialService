@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SocialService.DataAccess.Entities;
 using SocialService.DataAccess.Interface;
@@ -11,9 +12,9 @@ namespace SocialService.ServiceLogic
 {
     public class Startup
     {
-        public static void Init(IServiceCollection services)
+        public static void Init(IServiceCollection services,IConfiguration configuration)
         {
-            DataAccess.Startup.Init(services);
+            DataAccess.Startup.Init(services, configuration);
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new FriendsMappingProfile());
