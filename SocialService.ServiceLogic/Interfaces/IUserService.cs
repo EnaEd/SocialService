@@ -9,5 +9,6 @@ namespace SocialService.ServiceLogic.Interfaces
     {
         List<UserView> GetUsers();
         Task<UserView> GetUserModel(ClaimsPrincipal userCurrent);
+        Task Delete(string id);
     }
 }

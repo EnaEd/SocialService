@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using SocialService.DataAccess.Entities;
+using SocialService.DataAccess.Repositories;
 using SocialService.ServiceLogic.Interfaces;
 using SocialService.ServiceLogic.ViewModels;
 using System.Collections.Generic;
@@ -13,16 +15,18 @@ namespace SocialService.ServiceLogic.Services
     {
         private UserManager<User> _userManager;
         private RoleManager<IdentityRole> _roleManager;
+        private FriendsOfFriendsRepository _friendsOfFriendsRepository;
 
-        public UserService(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public UserService(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _friendsOfFriendsRepository = new FriendsOfFriendsRepository(configuration);
         }
 
         public List<UserView> GetUsers()
         {
-            List<UserView> users =_userManager.Users.Select(x => new UserView(x)).ToList();
+            List<UserView> users = _userManager.Users.Select(x => new UserView(x)).ToList();
             return users;
         }
         public async Task<UserView> GetUserModel(ClaimsPrincipal userCurrent)
@@ -38,6 +42,21 @@ namespace SocialService.ServiceLogic.Services
                 AllRoles = allRoles
             };
             return model;
+        }
+
+        public async Task Delete(string id)
+        {
+            User user = await _userManager.FindByEmailAsync(id);
+            if (user is null)
+            {
+                return;
+            }
+            List<FriendsOfFriends> friends = _friendsOfFriendsRepository.GetAll().Where(x => x.UserId == id).ToList();
+            IdentityResult result = await _userManager.DeleteAsync(user);
+            if (result.Errors?.Count() == default(int))
+            {
+                _friendsOfFriendsRepository.DeleteRange(friends);
+            }
         }
     }
 }

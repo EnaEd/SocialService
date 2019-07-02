@@ -7,10 +7,10 @@ namespace SocialService.DataAccess.Repositories
 {
     public class FriendsOfFriendsRepository : BaseRepository<FriendsOfFriends>
     {
-        private IRepository<Friend> _friendRepository;
+        //private IRepository<Friend> _friendRepository;
         public FriendsOfFriendsRepository(IConfiguration configuration) : base(configuration)
         {
-            _friendRepository = new FriendRepository(configuration);
+            //_friendRepository = new FriendRepository(configuration);
         }
         public void DeleteRange(List<FriendsOfFriends> friendsIdList)
         {

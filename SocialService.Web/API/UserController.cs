@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -27,6 +28,12 @@ namespace SocialService.Web.API
         {
             
             return _userService.GetUsers();
+        }
+
+        [HttpPost("DeleteUser/{id}")]
+        public async Task Delete(string id)
+        {
+            await _userService.Delete(id);
         }
     }
 }
