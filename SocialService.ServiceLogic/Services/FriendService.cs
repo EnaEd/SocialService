@@ -1,14 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using SocialService.DataAccess.Entities;
-using SocialService.DataAccess.Interface;
 using SocialService.DataAccess.Repositories;
-using SocialService.ServiceLogic.Interfaces;
 using SocialService.ServiceLogic.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 
 namespace SocialService.ServiceLogic.Services
 {
@@ -40,6 +36,8 @@ namespace SocialService.ServiceLogic.Services
         {
             //Use Dapper instead of EF
             //IEnumerable<FriendsView> result = _mapper.Map<IEnumerable<FriendsView>>(_friendDapperRepository.GetAll(userId));
+
+            //Use EF
             IEnumerable<FriendsView> result = _mapper.Map<List<FriendsView>>(_friendRepository.GetFriendByUser(userId));
             return result;
         }

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using SocialService.DataAccess.Entities;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace SocialService.DataAccess.Repositories
@@ -13,9 +14,12 @@ namespace SocialService.DataAccess.Repositories
         }
         public List<Friend> GetFriendByUser(string userId)
         {
-            var temp = _dbSet.FromSql("SELECT Friends.Id,Friends.Name,Friends.Phone,Friends.Email "+
-                                       "FROM FriendsOfFriends JOIN Friends "+
-                                       "ON FriendsOfFriends.FriendId = Friends.Id").ToList();
+            string command = "SELECT Friends.Id,Friends.Name,Friends.Phone,Friends.Email " +
+                                       "FROM FriendsOfFriends JOIN Friends " +
+                                       "ON FriendsOfFriends.FriendId = Friends.Id " +
+                                       "WHERE FriendsOfFriends.UserId=@userId";
+            SqlParameter parameterS = new SqlParameter("@userId", userId);
+            var temp = _dbSet.FromSql(command, parameterS).ToList();
             return temp;
 
         }

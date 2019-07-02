@@ -3,7 +3,6 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SocialService.DataAccess.EF;
-using SocialService.DataAccess.Entities;
 using SocialService.DataAccess.Interface;
 
 namespace SocialService.DataAccess.Repositories

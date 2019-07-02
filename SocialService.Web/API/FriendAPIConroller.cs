@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using SocialService.ServiceLogic.Interfaces;
 using SocialService.ServiceLogic.Services;
 using SocialService.ServiceLogic.ViewModels;
 using System.Collections.Generic;
@@ -25,7 +23,7 @@ namespace SocialService.Web.API
         [HttpGet]
         public IEnumerable<FriendsView> Get()
         {
-           
+
             string userId = User.Identity.Name;
             IEnumerable<FriendsView> result = _service.GetAll(userId);
             return result;
@@ -37,7 +35,7 @@ namespace SocialService.Web.API
             string userId = User.Identity.Name;
             if (!string.IsNullOrEmpty(friend.Email))
             {
-                _service.Create(friend,userId);
+                _service.Create(friend, userId);
             }
         }
 
@@ -45,18 +43,18 @@ namespace SocialService.Web.API
         [HttpPost("EditFriend")]
         public void Put([FromBody]FriendsView friend)
         {
+            string userId = User.Identity.Name;
             if (friend is null)
             {
                 return;
             }
-            if (!_service.GetAll(friend.UserId).Any(x => x.Id == friend.Id))
+            if (!_service.GetAll(userId).Any(x => x.Id == friend.Id))
             {
                 return;
             }
             _service.Update(friend);
         }
 
-        //[HttpPost("DeleteFriend")]
         [HttpPost("DeleteFriend/{id}")]
         public void Delete(int id)
         {

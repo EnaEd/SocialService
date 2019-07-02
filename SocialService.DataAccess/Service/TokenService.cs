@@ -57,7 +57,7 @@ namespace SocialService.DataAccess.Service
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email)
-                    
+
                 };
                 ClaimsIdentity claimsIdentity =
                 new ClaimsIdentity(claims: claims, authenticationType: "Token", nameType: ClaimsIdentity.DefaultNameClaimType,

@@ -15,7 +15,7 @@ namespace SocialService.DataAccess
 {
     public class Startup
     {
-        public static void Init(IServiceCollection services,IConfiguration configuration)
+        public static void Init(IServiceCollection services, IConfiguration configuration)
         {
             services.AddTransient<ITokenService, TokenService>();
             services.AddTransient<IRepository<Friend>, FriendRepository>();
@@ -50,7 +50,7 @@ namespace SocialService.DataAccess
                         ValidateIssuerSigningKey = true,
                     };
                 });
-            
+
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationContext>();
         }

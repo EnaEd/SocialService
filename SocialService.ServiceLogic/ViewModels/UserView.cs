@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SocialService.ServiceLogic.ViewModels
+﻿namespace SocialService.ServiceLogic.ViewModels
 {
     public class UserView
     {
