@@ -10,10 +10,10 @@ namespace SocialService.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private FriendAPIController _friends;
+       // private FriendAPIController _friends;
         public HomeController(IMapper mapper, IConfiguration configuration)
         {
-            _friends = new FriendAPIController(configuration, mapper);
+            //_friends = new FriendAPIController(configuration, mapper);
         }
         [Authorize]
         public IActionResult Index()

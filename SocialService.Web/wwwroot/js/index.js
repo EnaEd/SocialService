@@ -1,7 +1,7 @@
 ﻿var tokenKey = "accessToken";
 var token;
-var urll = "http://localhost:44396/api/friendapi";
-var request = new XMLHttpRequest();
+//var urll = "http://localhost:44396/api/friendapi";
+//var request = new XMLHttpRequest();
 var friends;
 $(document).ready(function (e) {
     $('.modal').hide();

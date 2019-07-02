@@ -4,3 +4,48 @@
 <h1>@ViewData["Title"]</h1>
 
 <p>User policy</p>
+<input type="hidden" value="@User.Identity.Name" id="userName" />
+<div id="list-users">
+
+</div>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script>
+    var tokenKey = "accessToken";
+    var token;
+    $(document).ready(function (e) {
+        var loginData = {
+            grant_type: 'password',
+            username: $('#userName').val(),
+            password: ''
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/Account/Token',
+            data: loginData,
+            success: function (data) {
+                sessionStorage.setItem(tokenKey, data.access_token);
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/User/GetUsers',
+                    beforeSend: function (xhr) {
+                        token = sessionStorage.getItem(tokenKey);
+                        xhr.setRequestHeader("Authorization", "Bearer " + token);
+                    },
+                    success: function (data) {
+                        var elemen = document.getElementById("list-users");
+                        friends = data;
+                        elemen.innerHTML = "";
+                        for (var i = 0; i < data.length; i++) {
+                            elemen.innerHTML += "<br/><br/><div>" + data[i].name + " " + "<input type=\"button\" value=\"Delete\" id=\"deleteFriend\"onclick=\"DeleteFriendEvent(" + i + ")\"/>" + " " +
+                                "<input type=\"button\" value=\"Edit\" id=\"editFriend\" onclick=\"EditFriendEvent(" + i + ")\"/>" + "</div>"
+                        }
+                    },
+                    fail: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+        });
+
+    });
+</script>

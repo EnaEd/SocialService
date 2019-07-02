@@ -23,6 +23,7 @@ namespace SocialService.ServiceLogic
             IMapper mapper = config.CreateMapper();
             services.AddSingleton(mapper);
             services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IUserService, UserService>();
             services.AddHttpContextAccessor();
         }
     }
