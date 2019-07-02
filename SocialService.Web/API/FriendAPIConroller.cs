@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using SocialService.ServiceLogic.Interfaces;
 using SocialService.ServiceLogic.Services;
 using SocialService.ServiceLogic.ViewModels;
 using System.Collections.Generic;
@@ -21,12 +23,10 @@ namespace SocialService.Web.API
         }
 
         [HttpGet]
-        public IEnumerable<FriendsView> Get(string userId)
+        public IEnumerable<FriendsView> Get()
         {
-            if (string.IsNullOrEmpty(userId))
-            {
-                userId = User.Identity.Name;
-            }
+           
+            string userId = User.Identity.Name;
             IEnumerable<FriendsView> result = _service.GetAll(userId);
             return result;
         }
@@ -34,9 +34,10 @@ namespace SocialService.Web.API
         [HttpPost("CreateFriend")]
         public void Post([FromBody]FriendsView friend)
         {
-            if (friend != null && friend.Name != null)
+            string userId = User.Identity.Name;
+            if (!string.IsNullOrEmpty(friend.Email))
             {
-                _service.Create(friend);
+                _service.Create(friend,userId);
             }
         }
 
@@ -57,12 +58,9 @@ namespace SocialService.Web.API
 
         //[HttpPost("DeleteFriend")]
         [HttpPost("DeleteFriend/{id}")]
-        public void Delete(int id, string userId)
+        public void Delete(int id)
         {
-            if (string.IsNullOrEmpty(userId))
-            {
-                userId = User.Identity.Name;
-            }
+            string userId = User.Identity.Name;
             FriendsView friend = _service.GetAll(userId).FirstOrDefault(x => x.Id == id);
             if (friend != null)
             {

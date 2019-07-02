@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using SocialService.DataAccess.Entities;
 using SocialService.DataAccess.Interface;
 using SocialService.DataAccess.Repositories;
+using SocialService.ServiceLogic.Interfaces;
 using SocialService.ServiceLogic.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 
 namespace SocialService.ServiceLogic.Services
 {
@@ -22,7 +25,7 @@ namespace SocialService.ServiceLogic.Services
         }
         public void Delete(int id, string userId)
         {
-            Friend friend = _friendRepository.GetAll().FirstOrDefault(x=>x.Id==id && x.UserId==userId);
+            Friend friend = _friendRepository.GetAll().FirstOrDefault(x=>x.Id==id);
             if (friend is null)
             {
                 return;
@@ -41,20 +44,25 @@ namespace SocialService.ServiceLogic.Services
             return result;
         }
 
-        public void Create(FriendsView item)
+        public void Create(FriendsView item,string userId)
         {
             Friend friend = _mapper.Map<Friend>(item);
+            if (true)
+            {
+
+            }
             //TODO check if friend exist
             Friend friendEx=_friendRepository.GetAll().FirstOrDefault(x => x.Name == friend.Name && x.Phone == friend.Phone && x.Email == friend.Email);
             if (friendEx is null)
             {
                 _friendRepository.Create(friend);
-                _friendsOfFriendsrepository.Create(new FriendsOfFriends { FriendId = friend.Id, UserId = friend.UserId });
+                _friendsOfFriendsrepository.Create(new FriendsOfFriends { FriendId = friend.Id, UserId = userId });
                 return;
             }
-            if (friendEx.UserId!=friend.UserId)
+            FriendsOfFriends friendOfFriend = _friendsOfFriendsrepository.GetAll().FirstOrDefault(x => x.FriendId == friendEx.Id && x.UserId == userId);
+            if (friendOfFriend is null)
             {
-                _friendsOfFriendsrepository.Create(new FriendsOfFriends { FriendId = friendEx.Id, UserId = friend.UserId });
+                _friendsOfFriendsrepository.Create(new FriendsOfFriends { FriendId = friendEx.Id, UserId = userId });
             }
         }
 
