@@ -20,8 +20,14 @@ namespace SocialService.Web.Controllers
         {
             return View();
         }
-        [Authorize(Roles ="admin")]
+        
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "admin")]
+        public IActionResult UserAccess()
         {
             return View();
         }

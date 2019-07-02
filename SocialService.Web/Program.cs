@@ -15,7 +15,6 @@ namespace SocialService.Web
     {
         public static async Task Main(string[] args)
         {
-            // CreateWebHostBuilder(args).Build().Run();
             var host = CreateWebHostBuilder(args).Build();
 
             using (var scope = host.Services.CreateScope())
