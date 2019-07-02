@@ -11,9 +11,9 @@ namespace SocialService.ServiceLogic.Services
 {
     public class FriendService : BaseService
     {
-        private IRepository<Friend> _friendRepository;
-        private IDapperRepository<Friend> _friendDapperRepository;
-        private IRepository<FriendsOfFriends> _friendsOfFriendsrepository;
+        private FriendRepository _friendRepository;
+        private FriendDapperRepository _friendDapperRepository;
+        private FriendsOfFriendsRepository _friendsOfFriendsrepository;
         public FriendService(IConfiguration configuration,IMapper mapper) : base(mapper)
         {
             _friendRepository = new FriendRepository(configuration);
@@ -23,24 +23,21 @@ namespace SocialService.ServiceLogic.Services
         public void Delete(int id, string userId)
         {
             Friend friend = _friendRepository.GetAll().FirstOrDefault(x=>x.Id==id && x.UserId==userId);
+            if (friend is null)
+            {
+                return;
+            }
             _friendRepository.Delete(friend);
+            List<FriendsOfFriends> friendsIdList= _friendsOfFriendsrepository.GetAll()
+                                        .Where(x => x.FriendId == friend.Id).ToList();
+            _friendsOfFriendsrepository.DeleteRange(friendsIdList);
         }
 
         public IEnumerable<FriendsView> GetAll(string userId)
         {
             //Use Dapper instead of EF
-            IEnumerable<FriendsView> result = _mapper.Map<IEnumerable<FriendsView>>(_friendDapperRepository.GetAll(userId));
-            //var result = _mapper.Map<IEnumerable<FriendsView>>(_friendRepository.GetAll());
-            //List<Friend> resultFriend = new List<Friend>();
-            //IList<int> ids = _friendsOfFriendsrepository.GetAll().Where(x => x.UserId == userId).Select(x => x.FriendId).ToList();
-            //foreach (var item in ids)
-            //{
-            //    if (item != default(int))
-            //    {
-            //        resultFriend.Add(_friendRepository.GetById(item));
-            //    }
-            //}
-            //IEnumerable<FriendsView> result = _mapper.Map<IEnumerable<FriendsView>>(resultFriend as IEnumerable<Friend>);
+            //IEnumerable<FriendsView> result = _mapper.Map<IEnumerable<FriendsView>>(_friendDapperRepository.GetAll(userId));
+            IEnumerable<FriendsView> result = _mapper.Map<List<FriendsView>>(_friendRepository.GetFriendByUser(userId));
             return result;
         }
 
