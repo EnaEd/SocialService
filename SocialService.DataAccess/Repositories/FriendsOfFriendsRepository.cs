@@ -4,7 +4,7 @@ using SocialService.DataAccess.Interface;
 
 namespace SocialService.DataAccess.Repositories
 {
-    public class FriendsOfFriendsRepository : BaseRepository<FriendsOfFriendsRepository>
+    public class FriendsOfFriendsRepository : BaseRepository<FriendsOfFriends>
     {
         private IRepository<Friend> _friendRepository;
         public FriendsOfFriendsRepository(IConfiguration configuration) : base(configuration)

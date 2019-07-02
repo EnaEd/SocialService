@@ -36,7 +36,11 @@ namespace SocialService.DataAccess.Repositories
         {
             return _dbSet.ToList();
         }
-
+        public T GetById(int Id)
+        {
+            var t= _dbSet.Find(Id);
+            return t;
+        }
         public virtual void Update(T item)
         {
             _dbSet.Update(item);

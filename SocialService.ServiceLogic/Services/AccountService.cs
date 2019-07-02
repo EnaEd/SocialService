@@ -22,12 +22,7 @@ namespace SocialService.ServiceLogic.Services
         {
             SignInResult result =
             await _signInManager.PasswordSignInAsync(loginViewModel.Email, loginViewModel.Password, loginViewModel.RememberMe, false);
-            if (!result.Succeeded)
-            {
-                return false;
-            }
-
-            return true;
+            return result.Succeeded;
         }
 
         public async Task<bool> OnReigstration(RegisterView registerViewModel, List<IdentityError> errors)
