@@ -1,8 +1,12 @@
 ﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using SocialService.ServiceLogic.Interfaces;
+using SocialService.ServiceLogic.Services;
+using SocialService.ServiceLogic.ViewModels;
 using SocialService.Web.API;
 using SocialService.Web.Models;
 
@@ -10,10 +14,10 @@ namespace SocialService.Web.Controllers
 {
     public class HomeController : Controller
     {
-       // private FriendAPIController _friends;
-        public HomeController(IMapper mapper, IConfiguration configuration)
+        private IUserService _userService;
+        public HomeController(IMapper mapper, IConfiguration configuration,IUserService userService)
         {
-            //_friends = new FriendAPIController(configuration, mapper);
+            _userService = userService;
         }
         [Authorize]
         public IActionResult Index()
@@ -27,9 +31,10 @@ namespace SocialService.Web.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        public IActionResult UserAccess()
+        public async Task<IActionResult> UserAccess()
         {
-            return View();
+            var model = await _userService.GetUserModel(User);
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
