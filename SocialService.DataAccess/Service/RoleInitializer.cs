@@ -10,19 +10,17 @@ namespace SocialService.DataAccess.Service
 {
     public class RoleInitializer
     {
-        private const string ADMIN_ROLE= "admin";
-        private const string USER_ROLE = "user";
         public static async Task InitializeAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager,IConfiguration configuration)
         {
             string adminEmail = configuration["Admin:AdminEmail"];
             string password = configuration["Admin:Password"];
-            if (await roleManager.FindByNameAsync(ADMIN_ROLE) == null)
+            if (await roleManager.FindByNameAsync(configuration["Roles:Admin"]) == null)
             {
-                await roleManager.CreateAsync(new IdentityRole(ADMIN_ROLE));
+                await roleManager.CreateAsync(new IdentityRole(configuration["Roles:Admin"]));
             }
-            if (await roleManager.FindByNameAsync(USER_ROLE) == null)
+            if (await roleManager.FindByNameAsync(configuration["Roles:User"]) == null)
             {
-                await roleManager.CreateAsync(new IdentityRole(USER_ROLE));
+                await roleManager.CreateAsync(new IdentityRole(configuration["Roles:User"]));
             }
             if (await userManager.FindByNameAsync(adminEmail) == null)
             {

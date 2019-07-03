@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using SocialService.DataAccess.Entities;
 using SocialService.ServiceLogic.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 
 namespace SocialService.ServiceLogic.Services
 {
@@ -11,11 +12,13 @@ namespace SocialService.ServiceLogic.Services
     {
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
+        private IConfiguration _configuration;
 
-        public AccountService(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountService(UserManager<User> userManager, SignInManager<User> signInManager,IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _configuration = configuration;
         }
 
         public async Task<bool> OnLogin(LoginView loginViewModel)
@@ -37,7 +40,7 @@ namespace SocialService.ServiceLogic.Services
                 }
                 return false;
             }
-
+            await _userManager.AddToRoleAsync(user, _configuration["Roles:User"]);
             await _signInManager.SignInAsync(user, false);
             return true;
         }
