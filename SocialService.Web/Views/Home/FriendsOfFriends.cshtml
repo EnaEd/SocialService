@@ -17,6 +17,9 @@
         Previus
     </a>
 }
+<a class="btn btn-primary">
+    @Model.PageView.PageNumber
+</a>
 @if (Model.PageView.HasNext)
 {
     <a asp-action="FriendsOfFriends"
