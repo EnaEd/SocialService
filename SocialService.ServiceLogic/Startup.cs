@@ -24,6 +24,7 @@ namespace SocialService.ServiceLogic
             services.AddSingleton(mapper);
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IHomeService, HomeService>();
             services.AddHttpContextAccessor();
         }
     }
