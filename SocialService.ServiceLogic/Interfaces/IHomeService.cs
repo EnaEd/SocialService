@@ -9,6 +9,6 @@ namespace SocialService.ServiceLogic.Interfaces
 {
     public interface IHomeService
     {
-        IndexPageView GetIndexViewModel(int page, List<User> users);
+        IndexPageView GetIndexViewModel(int page, string userId);
     }
 }
