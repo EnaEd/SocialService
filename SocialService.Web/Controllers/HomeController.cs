@@ -5,9 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SocialService.ServiceLogic.Interfaces;
-using SocialService.ServiceLogic.Services;
-using SocialService.ServiceLogic.ViewModels;
-using SocialService.Web.API;
 using SocialService.Web.Models;
 
 namespace SocialService.Web.Controllers
@@ -35,6 +32,12 @@ namespace SocialService.Web.Controllers
         {
             var model = await _userService.GetUserModel(User);
             return View(model);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> FriendsOfFriends()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
