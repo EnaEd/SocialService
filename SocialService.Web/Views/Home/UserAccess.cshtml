@@ -15,15 +15,16 @@
     <div class="modal-content" style="width:200px;position:center">
         <span class="close" onclick="Close()">&times;</span>
         <h2>Edit Role</h2>
-        @if (Model?.AllRoles != null)
-        {
-        @foreach (IdentityRole role in Model.AllRoles)
-        {
-        <input type="checkbox" name="roles" value="@role.Name"
-               @(Model.UserRoles.Contains(role.Name) ? "checked=\" checked\"" : "" ) />@role.Name <br />
-        }
-        }
-        <input type="button" id="submitEdit" value="Edit" onclick="EditFriend()" /><br />
+        <input type="hidden" name="userId" value="@Model.UserId" />
+        <div class="form-group">
+            @foreach (IdentityRole role in Model.AllRoles)
+            {
+                <input type="hidden" id="userNameEdit" />
+                <input type="checkbox" name="roles" class="roles" value="@role.Name"
+                       @(Model.UserRoles.Contains(role.Name) ? "checked=\" checked\"" : "") />@role.Name <br />
+                }
+        </div>
+        <button type="button" class="btn btn-primary" onclick="EditFriend()">Save</button>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -56,7 +57,7 @@
                         elemen.innerHTML = "";
                         for (var i = 0; i < data.length; i++) {
                             elemen.innerHTML += "<br/><br/><div>" + data[i].name + " " + "<input type=\"button\" value=\"Delete\" id=\"deleteUser\"onclick=\"DeleteUserEvent(" + i + ")\"/>" + " " +
-                                "<input type=\"button\" value=\"Change Role\" id=\"changeRole\" onclick=\"ChangeRoleEvent((" + i + ")\"/>" + "</div>"
+                                "<input type=\"button\" value=\"Change Role\" id=\"changeRole\" onclick=\"ChangeRoleEvent(" + i + ")\"/>" + "</div>"
                         }
                     },
                     fail: function (data) {
@@ -67,9 +68,48 @@
         });
 
     });
-    function ChangeRoleEvent(index) {
-        $('.modal').css("display", "block");
 
+    function ChangeRoleEvent(index) {
+        let user = users[index];
+        $('.modal').css("display", "block");
+        $('#userNameEdit').val(user.name);
+    };
+
+    function Filtering(roleArray) {
+        return roleArray.checked;
+    };
+
+    function Mappnig(roleArray) {
+        return roleArray.value;
+    };
+
+    function EditFriend() {
+        var roleArray = [];
+        roleArray = document.getElementsByClassName("roles");
+        var roleFilter = Array.prototype.filter.call(roleArray, Filtering);
+        var roleMapping = roleFilter.map(Mappnig);
+        var name = $('#userNameEdit').val();
+        var json = JSON.stringify({
+            Id: $('#userNameEdit').val(),
+            Roles: roleMapping
+        })
+        $.ajax({
+            type: 'POST',
+            url: '/api/User/EditUser',
+            beforeSend: function (xhr) {
+                token = sessionStorage.getItem(tokenKey);
+                xhr.setRequestHeader("Authorization", "Bearer " + token);
+            },
+            contentType: "application/json",
+            data: json,
+            success: function (data) {
+                alert("Roles changed");
+                Close();
+            },
+            fail: function (data) {
+                console.log(data);
+            }
+        });
     };
     function Close() {
         $('.modal').css("display", "none");
@@ -86,6 +126,7 @@
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             success: function (data) {
+                //TODO reload page
                 location.load();
                 //$.ajax({
                 //    type: 'GET',

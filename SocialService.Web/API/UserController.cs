@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SocialService.ServiceLogic.Interfaces;
@@ -12,21 +10,20 @@ namespace SocialService.Web.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class UserController : Controller
     {
         private IUserService _userService;
         private IMapper _mapper;
-        public UserController(IConfiguration configuration,IUserService userService,IMapper mapper)
+        public UserController(IConfiguration configuration, IUserService userService, IMapper mapper)
         {
-            _userService =userService;
+            _userService = userService;
             _mapper = mapper;
         }
-        
+
         [HttpGet("GetUsers")]
         public IEnumerable<UserView> Get()
         {
-            
+
             return _userService.GetUsers();
         }
 
@@ -34,6 +31,11 @@ namespace SocialService.Web.API
         public async Task Delete(string id)
         {
             await _userService.Delete(id);
+        }
+        [HttpPost("EditUser")]
+        public async Task EditUser([FromBody]UserRolesView user)
+        {
+            await _userService.Edit(user.Id, user.Roles);
         }
     }
 }

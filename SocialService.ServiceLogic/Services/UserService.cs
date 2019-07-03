@@ -58,5 +58,21 @@ namespace SocialService.ServiceLogic.Services
                 _friendsOfFriendsRepository.DeleteRange(friends);
             }
         }
+        public async Task Edit(string id, List<string> roles)
+        {
+            User user = await _userManager.FindByEmailAsync(id);
+            if (user != null)
+            {
+                var userRoles = await _userManager.GetRolesAsync(user);
+                var allRoles = _roleManager.Roles.ToList();
+                var addedRoles = roles.Except(userRoles);
+                var removedRoles = userRoles.Except(roles);
+
+                await _userManager.AddToRolesAsync(user, addedRoles);
+
+                await _userManager.RemoveFromRolesAsync(user, removedRoles);
+            }
+
+        }
     }
 }
