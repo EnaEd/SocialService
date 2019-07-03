@@ -29,6 +29,14 @@ namespace SocialService.Web.API
             return result;
         }
 
+        [HttpGet("GetFriendsOfFriends/{id}")]
+        public IEnumerable<FriendsView> GetFriendsOfFriends(string id)
+        {
+
+            IEnumerable<FriendsView> result = _service.GetAll(id);
+            return result;
+        }
+
         [HttpPost("CreateFriend")]
         public void Post([FromBody]FriendsView friend)
         {
