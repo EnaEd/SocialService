@@ -12,9 +12,11 @@ namespace SocialService.Web.Controllers
     public class HomeController : Controller
     {
         private IUserService _userService;
-        public HomeController(IMapper mapper, IConfiguration configuration,IUserService userService)
+        private IHomeService _homeService;
+        public HomeController(IMapper mapper, IConfiguration configuration,IUserService userService,IHomeService homeService)
         {
             _userService = userService;
+            _homeService = homeService;
         }
         [Authorize]
         public IActionResult Index()

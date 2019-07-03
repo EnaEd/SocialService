@@ -1,11 +1,8 @@
 ﻿using SocialService.DataAccess.Entities;
 using SocialService.ServiceLogic.Interfaces;
 using SocialService.ServiceLogic.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SocialService.ServiceLogic.Services
 {
