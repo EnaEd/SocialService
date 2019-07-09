@@ -21,13 +21,13 @@ function InitData() {
             sessionStorage.setItem(tokenKey, data.access_token);
             $.ajax({
                 type: 'GET',
-                url: '/api/FriendAPI',
+                url: '/api/FriendAPI/GetAllFriends',
                 beforeSend: function (xhr) {
                     token = sessionStorage.getItem(tokenKey);
                     xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },
                 success: function (data) {
-                    friends = data;
+                    friends = JSON.parse(data);
                 },
                 fail: function (data) {
                     console.log(data);
@@ -40,16 +40,16 @@ function InitData() {
 
 function ClickFriendEvent(index) {
 
-    user = friends.find(x => x.id === index);
+    user = friends.find(x => x.Id === index);
     $.ajax({
         type: 'GET',
-        url: '/api/FriendAPI/GetFriendsOfFriends/' + user.name,
+        url: '/api/FriendAPI/GetFriendsOfFriends/' + user.Name,
         beforeSend: function (xhr) {
             token = sessionStorage.getItem(tokenKey);
             xhr.setRequestHeader("Authorization", "Bearer " + token);
         },
         success: function (data) {
-            var elemen = document.getElementById("listFriendsOfFriends" + user.id);
+            var elemen = document.getElementById("listFriendsOfFriends" + user.Id);
             elemen.innerHTML = "";
             for (var i = 0; i < data.length; i++) {
                 elemen.innerHTML += "<label>" + data[i].name + "</label><br/>";

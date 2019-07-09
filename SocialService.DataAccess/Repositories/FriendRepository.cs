@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using SocialService.DataAccess.Entities;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -21,6 +22,16 @@ namespace SocialService.DataAccess.Repositories
             SqlParameter parameterS = new SqlParameter("@userId", userId);
             var temp = _dbSet.FromSql(command, parameterS).ToList();
             return temp;
+
+        }
+        public string GetAllFriends()
+        {
+            string command = "SELECT Friends.Id,FriendsOfFriends.UserId,Friends.Name,Friends.Phone,Friends.Email " +
+                                       "FROM FriendsOfFriends JOIN Friends " +
+                                       "ON FriendsOfFriends.FriendId = Friends.Id ";
+            var temp = _dbSet.FromSql(command).ToList();
+            string jsonArr = JsonConvert.SerializeObject(temp);
+            return jsonArr;
 
         }
         public override void Update(Friend item)

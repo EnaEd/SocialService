@@ -69,5 +69,10 @@ namespace SocialService.ServiceLogic.Services
             Friend friend = _mapper.Map<Friend>(item);
             _friendRepository.Update(friend);
         }
+
+        public string GetAllFriends()
+        {
+            return _friendRepository.GetAllFriends();
+        }
     }
 }

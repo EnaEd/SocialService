@@ -37,6 +37,13 @@ namespace SocialService.Web.API
             return result;
         }
 
+        [HttpGet("GetAllFriends")]
+        public string GetAllFriends()
+        {
+            string result = _service.GetAllFriends();
+            return result;
+        }
+
         [HttpPost("CreateFriend")]
         public void Post([FromBody]FriendsView friend)
         {
