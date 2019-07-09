@@ -1,6 +1,7 @@
 ﻿var tokenKey = "accessToken";
 var token;
 var friends;
+var user;
 $(document).ready(InitData);
 
 function InitData() {
@@ -27,13 +28,6 @@ function InitData() {
                 },
                 success: function (data) {
                     friends = data;
-                    var elemen = document.getElementById("listFriends");
-                    elemen.innerHTML = "";
-                    for (var i = 0; i < data.length; i++) {
-                        elemen.innerHTML += "<button class=\"btn btn-link\" type=\"button\" data-toggle=\"collapse\" data-target=\"#listFriendsOfFriends" + i + "\" aria-expanded=\"false\" aria-controls=\"listFriendsOfFriends\" onClick=\"ClickFriendEvent(" + i + ") \">" +
-                            data[i].name + "</button><br/>" +
-                            "<div id=\"listFriendsOfFriends" + i + "\" class=\"collapse\">" + "Some text</div>";
-                    }
                 },
                 fail: function (data) {
                     console.log(data);
@@ -43,8 +37,10 @@ function InitData() {
     });
 
 };
+
 function ClickFriendEvent(index) {
-    var user = friends[index];
+
+    user = friends.find(x => x.id === index);
     $.ajax({
         type: 'GET',
         url: '/api/FriendAPI/GetFriendsOfFriends/' + user.name,
@@ -53,7 +49,7 @@ function ClickFriendEvent(index) {
             xhr.setRequestHeader("Authorization", "Bearer " + token);
         },
         success: function (data) {
-            var elemen = document.getElementById("listFriendsOfFriends" + index);
+            var elemen = document.getElementById("listFriendsOfFriends" + user.id);
             elemen.innerHTML = "";
             for (var i = 0; i < data.length; i++) {
                 elemen.innerHTML += "<label>" + data[i].name + "</label><br/>";

@@ -1,13 +1,25 @@
 ﻿
 @model SocialService.ServiceLogic.ViewModels.IndexPageView
 
-<table class="table">
-    <tr><th>Имя</th><th>Возраст</th><th>Компания</th></tr>
-    @foreach (var u in Model.Friends)
-    {
-        <tr><td>@u.Name</td><td>@u.Email</td><td>@u.Phone</td></tr>
-    }
-</table>
+    <table class="table">
+        <tr><th>Name</th><th>Email</th><th>Phone</th></tr>
+        @foreach (var u in Model.Friends)
+        {
+            <tr>
+                <td>
+                    @{ 
+                    string nameList = $"listFriendsOfFriends{u.Id}";
+                        <text>
+                    <a class="btn btn-link" data-toggle="collapse" href="#@nameList" role="button" aria-expanded="false" aria-controls="@nameList" onclick="ClickFriendEvent(@u.Id)">@u.Name</a>
+                    <div id="@nameList" class="collapse">Some text</div>
+                        </text>
+                    }
+                </td>
+                <td>@u.Email</td>
+                <td>@u.Phone</td>
+            </tr>
+        }
+    </table>
 @if (Model.PageView.HasPrevius)
 {
     <a asp-action="FriendsOfFriends"
